@@ -7,7 +7,12 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest --run",
+    "test:watch": "vitest --watch",
+    "test:staged": "git diff --name-only --cached --diff-filter=d -- '*.spec.ts' '*.spec.tsx' | xargs -r vitest run",
+    "test:coverage": "pnpm run test --coverage",
+    "test:list": "pnpm run test list"
   },
   "dependencies": {
     "react": "^18.3.1",
