@@ -9,10 +9,14 @@ vi.mock("axios")
 
 const mockedAxios = axios
 
+const makeSut = (): AxiosHttpClient<object> => {
+  return new AxiosHttpClient()
+}
+
 describe("AxiosHttpClient", () => {
   it("Should call axios with correct URL", async () => {
     const url = faker.internet.url()
-    const sut = new AxiosHttpClient()
+    const sut = makeSut()
     await sut.post({ url })
     expect(mockedAxios).toHaveBeenCalledWith(url)
   })
