@@ -4,6 +4,8 @@ import { describe, it, expect, vi } from "vitest";
 
 import { AxiosHttpClient } from "./axios-http-client";
 
+import { HttpPostParams } from "@/data/protocols/http";
+
 
 vi.mock("axios")
 
@@ -13,11 +15,16 @@ const makeSut = (): AxiosHttpClient<object> => {
   return new AxiosHttpClient()
 }
 
+const mockPostRequest = (): HttpPostParams<object> => ({
+  url: faker.internet.url(),
+  body: faker.helpers.objectValue
+})
+
 describe("AxiosHttpClient", () => {
   it("Should call axios with correct URL and verb", async () => {
-    const url = faker.internet.url()
+    const request = mockPostRequest()
     const sut = makeSut()
-    await sut.post({ url })
-    expect(mockedAxios.post).toHaveBeenCalledWith(url)
+    await sut.post(request)
+    expect(mockedAxios.post).toHaveBeenCalledWith(request.url)
   })
 })
