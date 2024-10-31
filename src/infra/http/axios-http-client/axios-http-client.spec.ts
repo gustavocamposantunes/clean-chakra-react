@@ -10,12 +10,10 @@ vi.mock("axios")
 
 const mockedAxios = axios
 
-const mockedAxiosResult = {
+const { mock } = vi.mocked(axios, true).post.mockResolvedValue({
   data: faker.helpers.objectValue,
   status: faker.number.int()
-}
-
-vi.mocked(axios, true).post.mockResolvedValue(mockedAxiosResult)
+})
 
 const makeSut = (): AxiosHttpClient<object, object> => {
   return new AxiosHttpClient()
@@ -34,13 +32,9 @@ describe("AxiosHttpClient", () => {
     expect(mockedAxios.post).toHaveBeenCalledWith(request.url, request.body)
   })
 
-  it("Should return the correct statusCode and body", async () => {
-    
+  it("Should return the correct statusCode and body", () => {
     const sut = makeSut()
-    const httpResponse = await sut.post(mockPostRequest())
-    expect(httpResponse).toEqual({
-      statusCode: mockedAxiosResult.status,
-      body: mockedAxiosResult.data
-    })
+    const promise = sut.post(mockPostRequest())
+    expect(promise).toEqual(mock.results[0].value)
   })
 })
