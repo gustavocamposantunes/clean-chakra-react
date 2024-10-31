@@ -41,7 +41,8 @@ export default tseslint.config(
           'newlines-between': 'always',
           alphabetize: { order: 'asc', caseInsensitive: true }
         }
-      ]
+      ],
+      'react-refresh/only-export-components': 0
     },
   }
 )
