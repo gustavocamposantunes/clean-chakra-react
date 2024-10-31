@@ -4,7 +4,7 @@ import { describe, it, expect, vi } from "vitest"
 
 import { AxiosHttpClient } from "./axios-http-client"
 
-import { HttpPostParams } from "@/data/protocols/http"
+import { mockPostRequest } from "@/data/test"
 
 vi.mock("axios")
 
@@ -18,11 +18,6 @@ const { mock } = vi.mocked(axios, true).post.mockResolvedValue({
 const makeSut = (): AxiosHttpClient<object, object> => {
   return new AxiosHttpClient()
 }
-
-const mockPostRequest = (): HttpPostParams<object> => ({
-  url: faker.internet.url(),
-  body: faker.helpers.objectValue
-})
 
 describe("AxiosHttpClient", () => {
   it("Should call axios with correct values", async () => {
