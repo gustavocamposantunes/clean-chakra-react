@@ -1,13 +1,13 @@
-import { ChakraProvider, defaultSystem } from '@chakra-ui/react'
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { ChakraProvider, defaultSystem } from "@chakra-ui/react"
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
 
-import { LoginPage } from '@/presentation/pages'
+import { Router } from "@/presentation/navigation"
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ChakraProvider value={defaultSystem}>
-      <LoginPage />
+      <Router />
     </ChakraProvider>
   </StrictMode>,
 )
