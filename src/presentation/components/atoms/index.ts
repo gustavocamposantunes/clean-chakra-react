@@ -1,6 +1,6 @@
 export * from "./custom-button"
 export * from "./custom-footer"
-export * from "./custom-header"
 export * from "./custom-input"
 export * from "./form-status"
+export * from "./login-header"
 export * from "./logo"

@@ -2,7 +2,7 @@ import { Flex, Heading } from "@chakra-ui/react";
 
 import { Logo } from ".";
 
-export const CustomHeader = () => (
+export const LoginHeader = () => (
   <Flex 
     borderTopColor="gray.800"
     borderTopWidth="40px"

@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react"
 import { ReactNode } from "react"
 
-import { CustomHeader, CustomFooter } from "../atoms"
+import { CustomFooter } from "../atoms"
 
 interface ILayout {
   children: ReactNode
@@ -9,7 +9,6 @@ interface ILayout {
 
 export const Layout: React.FC<ILayout> = ({ children }) => (
   <Flex bg="orange.500" w="100vw" h="100vh" justify="space-between" align="center" direction="column">
-    <CustomHeader />
     {children}
     <CustomFooter />
   </Flex>
