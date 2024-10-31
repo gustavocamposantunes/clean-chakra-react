@@ -1,7 +1,7 @@
 import { Flex, Link } from "@chakra-ui/react"
 import React from "react"
 
-import { CustomButton, CustomSpinner } from "../atoms"
+import { CustomButton, FormStatus } from "../atoms"
 
 interface IAuthActions {
   onLogin?(): void
@@ -22,6 +22,6 @@ export const AuthActions: React.FC<IAuthActions> = ({ onLogin, isLoading }) => (
       Entrar
     </CustomButton>
     <Link textAlign="center">Criar conta</Link>
-    {isLoading && <CustomSpinner />}
+    {isLoading && <FormStatus />}
   </Flex>
 )
