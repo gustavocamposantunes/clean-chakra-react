@@ -1,17 +1,23 @@
 import { faker } from "@faker-js/faker"
 import axios from "axios"
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi } from "vitest"
 
-import { AxiosHttpClient } from "./axios-http-client";
+import { AxiosHttpClient } from "./axios-http-client"
 
-import { HttpPostParams } from "@/data/protocols/http";
-
+import { HttpPostParams } from "@/data/protocols/http"
 
 vi.mock("axios")
 
 const mockedAxios = axios
 
-const makeSut = (): AxiosHttpClient<object> => {
+const mockedAxiosResult = {
+  data: faker.helpers.objectValue,
+  status: faker.number.int()
+}
+
+vi.mocked(axios, true).post.mockResolvedValue(mockedAxiosResult)
+
+const makeSut = (): AxiosHttpClient<object, object> => {
   return new AxiosHttpClient()
 }
 
@@ -26,5 +32,15 @@ describe("AxiosHttpClient", () => {
     const sut = makeSut()
     await sut.post(request)
     expect(mockedAxios.post).toHaveBeenCalledWith(request.url, request.body)
+  })
+
+  it("Should return the correct statusCode and body", async () => {
+    
+    const sut = makeSut()
+    const httpResponse = await sut.post(mockPostRequest())
+    expect(httpResponse).toEqual({
+      statusCode: mockedAxiosResult.status,
+      body: mockedAxiosResult.data
+    })
   })
 })
