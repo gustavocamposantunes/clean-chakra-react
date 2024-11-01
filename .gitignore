@@ -28,3 +28,5 @@ coverage
 
 # pre-commit
 .husky
+
+*storybook.log
