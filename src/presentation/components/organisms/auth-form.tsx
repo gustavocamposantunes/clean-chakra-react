@@ -29,6 +29,6 @@ export const AuthForm: React.FC<IAuthForm> = ({ onSubmit }) => (
   >
     <Heading as="h2" color="gray.700" textAlign="center" textTransform="uppercase">Login</Heading>
     <AuthFields />
-    <AuthActions isLoading />
+    <AuthActions />
   </Flex>
 )

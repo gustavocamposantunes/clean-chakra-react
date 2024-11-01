@@ -5,10 +5,9 @@ import { CustomButton, FormStatus } from "../atoms"
 
 interface IAuthActions {
   onLogin?(): void
-  isLoading: boolean
 }
 
-export const AuthActions: React.FC<IAuthActions> = ({ onLogin, isLoading }) => (
+export const AuthActions: React.FC<IAuthActions> = ({ onLogin }) => (
   <Flex 
     pt={3}
     direction="column" 
@@ -22,6 +21,6 @@ export const AuthActions: React.FC<IAuthActions> = ({ onLogin, isLoading }) => (
       Entrar
     </CustomButton>
     <Link textAlign="center">Criar conta</Link>
-    {isLoading && <FormStatus />}
+    <FormStatus />
   </Flex>
 )
