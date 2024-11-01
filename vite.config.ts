@@ -6,7 +6,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   plugins: [react(), tsConfigPaths()],
   test: {
-    environment: 'jsdom',
+    environment: 'happy-dom',
     coverage: {
       reportsDirectory: './coverage',
       reporter: 'html'
