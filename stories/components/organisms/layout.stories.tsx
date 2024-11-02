@@ -1,6 +1,9 @@
+import { Flex } from '@chakra-ui/react';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { Layout, AuthForm } from '@/presentation/components/organisms';
+import Context from '@/presentation/contexts/form/form-context';
 
 const meta = {
   title: 'organism/layout',
@@ -22,7 +25,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    children: <AuthForm />
+    children: <></>
   },
+  decorators: [
+    (Story) => (
+      <Context.Provider value={{ isLoading: false, errorMessage: "" }}>
+        {Story()}
+      </Context.Provider>
+    )
+  ]
+};
+
+export const WithForm: Story = {
+  args: {
+    children: <Flex w="100%" justify="center" mt="8"><AuthForm /></Flex>
+  },
+  decorators: [
+    (Story) => (
+      <Context.Provider value={{ isLoading: false, errorMessage: "" }}>
+        {Story()}
+      </Context.Provider>
+    )
+  ]
 };
 
