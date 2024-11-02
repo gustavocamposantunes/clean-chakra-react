@@ -4,15 +4,21 @@ import React, { useContext } from "react"
 import Context from "@/presentation/contexts/form/form-context"
 
 export const CustomInput: React.FC<InputProps> = ({ ...props }) => {
-  const { errorState } = useContext(Context)
-  const error = errorState[props.name]
+  const { state, setState } = useContext(Context)
+  const error = state[`${props.name}Error`]
+  const handleChange = (event: React.FocusEvent<HTMLInputElement>) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.value
+    })
+  }
   const getStatus = (): string => {
     return "🔴"
   }
   const getError = (): string => error
   return (
     <Group attached>
-      <Input {...props} />
+      <Input {...props} data-testid={props.name} onChange={handleChange} />
       <InputAddon data-testid={`${props.name}-status`} title={getError()} cursor="help">{getStatus()}</InputAddon>
     </Group>
   )

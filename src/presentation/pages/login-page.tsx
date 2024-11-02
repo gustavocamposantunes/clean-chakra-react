@@ -1,20 +1,30 @@
-import { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 import { LoginTemplate } from "@/presentation/components/templates/login-template"
 import Context from "@/presentation/contexts/form/form-context"
+import { Validation } from "@/presentation/protocols/validation"
 
-export const LoginPage = () => {
-  const [state] = useState({
-    isLoading: false
+type Props = {
+  validation: Validation
+}
+
+export const LoginPage: React.FC<Props> = ({ validation }) => {
+  const [state, setState] = useState({
+    isLoading: false,
+    email: "",
+    emailError: "Campo obrigatório",
+    passwordError: "Campo obrigatório",
+    mainError: ""
   })
-  const [errorState] = useState({
-    email: "Campo obrigatório",
-    password: "Campo obrigatório",
-    main: ""
-  })
+
+  useEffect(() => {
+    validation.validate({
+      email: state.email
+    })
+  }, [state.email])
 
   return (
-    <Context.Provider value={{ state, errorState }}>
+    <Context.Provider value={{ state, setState }}>
       <LoginTemplate />
     </Context.Provider>
   )
