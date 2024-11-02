@@ -5,7 +5,7 @@ import { defineConfig } from 'vitest/config'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tsConfigPaths({
-    projects: ['./stories/tsconfig.stories.json']
+    projects: ['./tsconfig.json']
   })],
   test: {
     environment: 'happy-dom',
