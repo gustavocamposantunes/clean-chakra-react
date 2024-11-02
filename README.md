@@ -5,7 +5,7 @@ React project with good practices concepts
 ## Main Concepts
 
 * Clean Architecture
-* Test Drive Development
+* Test Driven Development
 * SOLID
 * Design Patterns
 
