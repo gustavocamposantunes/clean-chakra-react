@@ -42,7 +42,7 @@ export const WithForm: Story = {
   },
   decorators: [
     (Story) => (
-      <Context.Provider value={{ isLoading: false, errorMessage: "" }}>
+      <Context.Provider value={{ state: { isLoading: false }, errorState: { main: "", email: "", password: "" }}}>
         {Story()}
       </Context.Provider>
     )

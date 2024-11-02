@@ -3,6 +3,7 @@ import { Flex } from '@chakra-ui/react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { AuthFields } from '@/presentation/components/molecules';
+import Context from '@/presentation/contexts/form/form-context';
 
 const meta = {
   title: 'molecules/auth-fields',
@@ -29,5 +30,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {},
+  decorators: [
+    (Story) => (
+      <Context.Provider value={{ state: { isLoading: false }, errorState: { email: "", password: "", main: "Ocorreu um erro" }}}>
+        {Story()}
+      </Context.Provider>
+    )
+  ]
 };
 

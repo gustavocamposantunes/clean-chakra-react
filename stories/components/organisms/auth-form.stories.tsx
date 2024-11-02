@@ -32,7 +32,7 @@ export const Primary: Story = {
   args: {},
   decorators: [
     (Story) => (
-      <Context.Provider value={{ isLoading: false, errorMessage: "" }}>
+      <Context.Provider value={{ state: { isLoading: false }, errorState: { main: "" }}}>
         {Story()}
       </Context.Provider>
     )
@@ -43,7 +43,18 @@ export const WithError: Story = {
   args: {},
   decorators: [
     (Story) => (
-      <Context.Provider value={{ isLoading: true, errorMessage: "Ocorreu um erro" }}>
+      <Context.Provider value={{ state: { isLoading: false }, errorState: { main: "Ocorreu um erro" }}}>
+        {Story()}
+      </Context.Provider>
+    )
+  ]
+};
+
+export const WithLoading: Story = {
+  args: {},
+  decorators: [
+    (Story) => (
+      <Context.Provider value={{ state: { isLoading: false }, errorState: { main: "Ocorreu um erro" }}}>
         {Story()}
       </Context.Provider>
     )

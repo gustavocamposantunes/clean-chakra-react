@@ -25,18 +25,29 @@ export const Primary: Story = {
   args: {},
   decorators: [
     (Story) => (
-      <Context.Provider value={{ isLoading: false, errorMessage: "" }}>
+      <Context.Provider value={{ state: { isLoading: false }, errorState: { main: "" } }}>
         <Story />
       </Context.Provider>
     )
   ],
 };
 
-export const Loading: Story = {
+export const WithError: Story = {
   args: {},
   decorators: [
     (Story) => (
-      <Context.Provider value={{ isLoading: true, errorMessage: "Loading..." }}>
+      <Context.Provider value={{ state: { isLoading: false }, errorState: { main: "Ocorreu um erro" } }}>
+        <Story />
+      </Context.Provider>
+    )
+  ],
+};
+
+export const WithLoading: Story = {
+  args: {},
+  decorators: [
+    (Story) => (
+      <Context.Provider value={{ state: { isLoading: true }, errorState: { main: "" } }}>
         <Story />
       </Context.Provider>
     )
