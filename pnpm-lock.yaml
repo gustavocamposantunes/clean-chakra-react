@@ -39,6 +39,9 @@ importers:
       '@faker-js/faker':
         specifier: ^9.1.0
         version: 9.1.0
+      '@storybook/addon-a11y':
+        specifier: ^8.4.1
+        version: 8.4.1(storybook@8.4.1)
       '@storybook/addon-essentials':
         specifier: ^8.4.1
         version: 8.4.1(@types/react@18.3.12)(storybook@8.4.1)
@@ -682,6 +685,11 @@ packages:
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
+
+  '@storybook/addon-a11y@8.4.1':
+    resolution: {integrity: sha512-yRT7sCTze91oRE03TOBu1/01He2eCuxQwFNLeACCEBd10tS+zCvSIql8+VWnuT2kIVLPsbZ/E2x+PNTerWciuw==}
+    peerDependencies:
+      storybook: ^8.4.1
 
   '@storybook/addon-actions@8.4.1':
     resolution: {integrity: sha512-D6KohTIA4JCHNol1X7Whp4LpOVU4cS5FfyOorwYo/WIzpHrUYc4Pw/+ex6DOmU/kgrk14mr8d9obVehKW7iNtA==}
@@ -1540,6 +1548,10 @@ packages:
   available-typed-arrays@1.0.7:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
+
+  axe-core@4.10.2:
+    resolution: {integrity: sha512-RE3mdQ7P3FRSe7eqCWoeQ/Z9QXrtniSjp1wUjt5nRC3WIpz5rSCve6o3fsZ2aCpJtrZjSZgjwXAoTO5k4tEI0w==}
+    engines: {node: '>=4'}
 
   axios@1.7.7:
     resolution: {integrity: sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==}
@@ -3892,6 +3904,12 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
+  '@storybook/addon-a11y@8.4.1(storybook@8.4.1)':
+    dependencies:
+      '@storybook/addon-highlight': 8.4.1(storybook@8.4.1)
+      axe-core: 4.10.2
+      storybook: 8.4.1
+
   '@storybook/addon-actions@8.4.1(storybook@8.4.1)':
     dependencies:
       '@storybook/global': 5.0.0
@@ -5460,6 +5478,8 @@ snapshots:
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.0.0
+
+  axe-core@4.10.2: {}
 
   axios@1.7.7:
     dependencies:
