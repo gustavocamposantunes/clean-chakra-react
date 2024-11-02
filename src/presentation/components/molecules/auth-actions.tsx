@@ -17,6 +17,8 @@ export const AuthActions: React.FC<IAuthActions> = ({ onLogin }) => (
     <CustomButton 
       type="submit"
       onClick={onLogin}
+      data-testid="submit-button"
+      disabled
     >
       Entrar
     </CustomButton>
