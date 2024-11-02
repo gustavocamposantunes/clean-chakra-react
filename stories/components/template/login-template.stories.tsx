@@ -25,7 +25,7 @@ export const Primary: Story = {
   args: {},
   decorators: [
     (Story) => (
-      <Context.Provider value={{ state: { isLoading: false }, errorState: { main: "", email: "", password: "" }}}>
+      <Context.Provider value={{ state: { isLoading: false, mainError: "", email: "", password: "" }}}>
         {Story()}
       </Context.Provider>
     )
@@ -36,7 +36,7 @@ export const WithError: Story = {
   args: {},
   decorators: [
     (Story) => (
-      <Context.Provider value={{ state: { isLoading: true }, errorState: { main: "Ocorreu um erro", email: "", password: "" }}}>
+      <Context.Provider value={{ state: { isLoading: true, mainError: "Ocorreu um erro", email: "", password: "" }}}>
         {Story()}
       </Context.Provider>
     )

@@ -23,22 +23,22 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Error: Story = {
   args: {},
   decorators: [
     (Story) => (
-      <Context.Provider value={{ state: { isLoading: false }, errorState: { main: "Ocorreu um erro" } }}>
+      <Context.Provider value={{ state: { isLoading: false, mainError: "Ocorreu um erro" }}}>
         {Story()}
       </Context.Provider>
     )
   ]
 };
 
-export const WithError: Story = {
+export const WithLoading: Story = {
   args: {},
   decorators: [
     (Story) => (
-      <Context.Provider value={{ state: { isLoading: true }, errorState: { main: "Ocorreu um erro" } }}>
+      <Context.Provider value={{ state: { isLoading: true, mainError: "Ocorreu um erro" }}}>
         {Story()}
       </Context.Provider>
     )
