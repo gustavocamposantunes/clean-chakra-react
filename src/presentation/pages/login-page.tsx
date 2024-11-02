@@ -3,19 +3,18 @@ import { useState } from "react"
 import { LoginTemplate } from "@/presentation/components/templates/login-template"
 import Context from "@/presentation/contexts/form/form-context"
 
-type State = {
-  isLoading: boolean
-  errorMessage: string
-}
-
 export const LoginPage = () => {
-  const [state] = useState<State>({
-    isLoading: false,
-    errorMessage: ""
+  const [state] = useState({
+    isLoading: false
+  })
+  const [errorState] = useState({
+    email: "Campo obrigatório",
+    password: "Campo obrigatório",
+    main: ""
   })
 
   return (
-    <Context.Provider value={state}>
+    <Context.Provider value={{ state, errorState }}>
       <LoginTemplate />
     </Context.Provider>
   )

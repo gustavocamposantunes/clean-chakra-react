@@ -4,11 +4,11 @@ import { useContext } from "react"
 import Context from "@/presentation/contexts/form/form-context"
 
 export const FormStatus = () => {
-  const { isLoading, errorMessage } = useContext(Context)
+  const { state, errorState } = useContext(Context)
   return (
     <Stack direction="column" align="center" data-testid="error-wrap">
-      {isLoading && <Spinner color="red.500" size="xl" />}
-      {errorMessage && <Heading color="red.500">{errorMessage}</Heading>}
+      {state.isLoading && <Spinner color="red.500" size="xl" />}
+      {errorState.main && <Heading color="red.500">{errorState.main}</Heading>}
     </Stack>
   )
 }
