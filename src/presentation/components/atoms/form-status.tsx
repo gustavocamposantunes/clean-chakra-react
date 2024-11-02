@@ -6,7 +6,7 @@ import Context from "@/presentation/contexts/form/form-context"
 export const FormStatus = () => {
   const { isLoading, errorMessage } = useContext(Context)
   return (
-    <Stack direction="column" data-testid="error-wrap">
+    <Stack direction="column" align="center" data-testid="error-wrap">
       {isLoading && <Spinner color="red.500" size="xl" />}
       {errorMessage && <Heading color="red.500">{errorMessage}</Heading>}
     </Stack>
