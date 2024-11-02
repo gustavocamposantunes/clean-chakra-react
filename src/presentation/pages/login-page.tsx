@@ -12,6 +12,7 @@ export const LoginPage: React.FC<Props> = ({ validation }) => {
   const [state, setState] = useState({
     isLoading: false,
     email: "",
+    password: "",
     emailError: "Campo obrigatório",
     passwordError: "Campo obrigatório",
     mainError: ""
@@ -22,6 +23,12 @@ export const LoginPage: React.FC<Props> = ({ validation }) => {
       email: state.email
     })
   }, [state.email])
+
+  useEffect(() => {
+    validation.validate({
+      password: state.password
+    })
+  }, [state.password])
 
   return (
     <Context.Provider value={{ state, setState }}>
