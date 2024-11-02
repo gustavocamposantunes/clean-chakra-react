@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker"
 import { afterEach, describe, expect, it } from "vitest"
 
 import { render, screen, fireEvent, cleanup } from "../test/test-utils"
@@ -6,13 +7,9 @@ import { LoginPage } from "./login-page"
 
 import { ValidationSpy } from "@/presentation/test"
 
-
-
-
 type SutTypes = {
   validationSpy: ValidationSpy
 }
-
 
 const makeSut = (): SutTypes => {    
   const validationSpy = new ValidationSpy()
@@ -43,16 +40,18 @@ describe("LoginPage", () => {
   it("should call Validation with correct email", () => {
     const { validationSpy } = makeSut()
     const emailInput = screen.getByTestId("email")
-    fireEvent.change(emailInput, { target: { value: "any_email" } })
+    const email = faker.internet.email()
+    fireEvent.change(emailInput, { target: { value: email } })
     expect(validationSpy.fieldName).toBe("email")
-    expect(validationSpy.fieldValue).toEqual("any_email")
+    expect(validationSpy.fieldValue).toEqual(email)
   })
 
   it("should call Validation with correct password", () => {
     const { validationSpy } = makeSut()
     const passwordInput = screen.getByTestId("password")
-    fireEvent.change(passwordInput, { target: { value: "any_password" } })
+    const password = faker.internet.password()
+    fireEvent.change(passwordInput, { target: { value: password } })
     expect(validationSpy.fieldName).toBe("password")
-    expect(validationSpy.fieldValue).toEqual("any_password")
+    expect(validationSpy.fieldValue).toEqual(password)
   })
 })
