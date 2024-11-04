@@ -36,7 +36,7 @@ export const WithError: Story = {
   args: {},
   decorators: [
     (Story) => (
-      <Context.Provider value={{ state: { isLoading: false, mainError: "Ocorreu um erro" }}}>
+      <Context.Provider value={{ state: { isLoading: false, mainError: "Ocorreu um erro", emailError: "emailError", passwordError: "passwordError" }}}>
         <Story />
       </Context.Provider>
     )
