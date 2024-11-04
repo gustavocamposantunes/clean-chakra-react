@@ -38,7 +38,7 @@ describe("LoginPage", () => {
     expect(passwordStatus.textContent).toBe("🔴")
   })
 
-  it("should email error if Validation fails", () => {
+  it("Should email error if Validation fails", () => {
     const { validationStub } = makeSut()
     const emailInput = screen.getByTestId("email")
     const email = faker.internet.email()
@@ -48,7 +48,7 @@ describe("LoginPage", () => {
     expect(emailStatus.textContent).toBe("🔴")
   })
 
-  it("should password error if Validation fails", () => {
+  it("Should password error if Validation fails", () => {
     const { validationStub } = makeSut()
     const passwordInput = screen.getByTestId("password")
     const password = faker.internet.password()
@@ -58,7 +58,7 @@ describe("LoginPage", () => {
     expect(passwordStatus.textContent).toBe("🔴")
   })
 
-  it("should show valid password state if Validation succeds", () => {
+  it("Should show valid password state if Validation succeds", () => {
     const { validationStub } = makeSut()
     validationStub.errorMessage = null
     const emailInput = screen.getByTestId("email")
@@ -69,7 +69,7 @@ describe("LoginPage", () => {
     expect(emailStatus.textContent).toBe("🟢")
   })
 
-  it("should show valid password state if Validation succeds", () => {
+  it("Should show valid password state if Validation succeds", () => {
     const { validationStub } = makeSut()
     validationStub.errorMessage = null
     const passwordInput = screen.getByTestId("password")
