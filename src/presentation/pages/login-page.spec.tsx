@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker"
-import { afterEach, describe, expect, it, vi } from "vitest"
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
+import "vitest-localstorage-mock"
 
 import { render, screen, fireEvent, cleanup } from "../test/test-utils"
 
@@ -59,6 +60,10 @@ const simulateStatusForField = (fieldName: string, validationError?: string): vo
 
 describe("LoginPage", () => {
   afterEach(cleanup)
+
+  beforeEach(() => {
+    localStorage.clear()
+  })
 
   it("Should start with initial state", () => {
     const validationError = faker.word.words()
@@ -147,5 +152,12 @@ describe("LoginPage", () => {
     const mainError = await screen.findByTestId("main-error")
     expect(mainError.textContent).toBe(error.message)
     expect(errorWrap.childElementCount).toBe(1)
+  })
+
+  it("Should add accessToken to localstorage on success", async () => {
+    const { authenticationSpy } = makeSut()
+    simulateValidSubmit()
+    await screen.findByTestId("form")
+    expect(localStorage.setItem).toHaveBeenCalledWith("accessToken", authenticationSpy.account.accesToken)
   })
 })
