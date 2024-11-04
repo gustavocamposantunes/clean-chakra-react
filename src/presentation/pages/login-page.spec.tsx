@@ -1,10 +1,11 @@
 import { faker } from "@faker-js/faker"
-import { afterEach, describe, expect, it } from "vitest"
+import { afterEach, describe, expect, it, vi } from "vitest"
 
 import { render, screen, fireEvent, cleanup } from "../test/test-utils"
 
 import { LoginPage } from "./login-page"
 
+import { InvalidCredentialsError } from "@/domain/errors"
 import { AuthenticationSpy, ValidationStub } from "@/presentation/test"
 
 type SutTypes = {
@@ -135,5 +136,16 @@ describe("LoginPage", () => {
     populateEmailField()
     fireEvent.submit(screen.getByTestId("form"))
     expect(authenticationSpy.callsCount).toBe(0)
+  })
+
+  it("Should present error if Authentication fails", async () => {
+    const { authenticationSpy } = makeSut()
+    const error = new InvalidCredentialsError()
+    vi.spyOn(authenticationSpy, "auth").mockRejectedValueOnce(error)
+    simulateValidSubmit()
+    const errorWrap = screen.getByTestId("error-wrap")
+    const mainError = await screen.findByTestId("main-error")
+    expect(mainError.textContent).toBe(error.message)
+    expect(errorWrap.childElementCount).toBe(1)
   })
 })
