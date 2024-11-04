@@ -121,4 +121,11 @@ describe("LoginPage", () => {
       password
     })
   })
+
+  it("Should call Authentication only once", () => {
+    const { authenticationSpy } = makeSut()
+    simulateValidSubmit()
+    simulateValidSubmit()
+    expect(authenticationSpy.callsCount).toBe(1)
+  })
 })
