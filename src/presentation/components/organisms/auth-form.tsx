@@ -10,6 +10,7 @@ interface IAuthForm {
 export const AuthForm: React.FC<IAuthForm> = ({ onSubmit }) => (
   <Flex 
     as="form"
+    data-testid="form"
     direction="column"
     spaceY={4}
     lg={{

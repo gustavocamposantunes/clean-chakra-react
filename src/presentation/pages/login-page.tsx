@@ -30,7 +30,7 @@ export const LoginPage: React.FC<Props> = ({ validation, authentication }) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLDivElement>): Promise<void> => {
     event.preventDefault()
-    if (state.isLoading) return
+    if (state.isLoading || state.emailError || state.passwordError) return
     setState({
       ...state,
       isLoading: true
