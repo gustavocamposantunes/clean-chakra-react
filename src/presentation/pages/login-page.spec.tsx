@@ -57,4 +57,15 @@ describe("LoginPage", () => {
     expect(passwordStatus.title).toBe(validationStub.errorMessage)
     expect(passwordStatus.textContent).toBe("🔴")
   })
+
+  it("should show valid password state if Validation succeds", () => {
+    const { validationStub } = makeSut()
+    validationStub.errorMessage = null
+    const passwordInput = screen.getByTestId("password")
+    const password = faker.internet.password()
+    fireEvent.change(passwordInput, { target: { value: password } })
+    const passwordStatus = screen.getByTestId("password-status")
+    expect(passwordStatus.title).toBe("Tudo certo")
+    expect(passwordStatus.textContent).toBe("🟢")
+  })
 })
