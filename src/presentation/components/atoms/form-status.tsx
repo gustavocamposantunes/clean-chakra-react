@@ -7,7 +7,7 @@ export const FormStatus = () => {
   const { state } = useContext(Context)
   return (
     <Stack direction="column" align="center" data-testid="error-wrap">
-      {state.isLoading && <Spinner color="red.700" size="xl" />}
+      {state.isLoading && <Spinner data-testid="spinner" color="red.700" size="xl" />}
       {state.mainError && <Heading color="red.700">{state.mainError}</Heading>}
     </Stack>
   )

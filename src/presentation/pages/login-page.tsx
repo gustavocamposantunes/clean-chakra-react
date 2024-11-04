@@ -26,9 +26,17 @@ export const LoginPage: React.FC<Props> = ({ validation }) => {
     })    
   }, [state.email, state.password])
 
+  const handleSubmit = (event: React.FormEvent<HTMLDivElement>): void => {
+    event.preventDefault()
+    setState({
+      ...state,
+      isLoading: true
+    })
+  }
+
   return (
     <Context.Provider value={{ state, setState }}>
-      <LoginTemplate />
+      <LoginTemplate onSubmit={handleSubmit} />
     </Context.Provider>
   )
 }

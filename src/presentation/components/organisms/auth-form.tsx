@@ -4,7 +4,7 @@ import React from "react"
 import { AuthActions, AuthFields } from "../molecules"
 
 interface IAuthForm {
-  onSubmit?(): void
+  onSubmit?(event: React.FormEvent<HTMLDivElement>): void
 }
 
 export const AuthForm: React.FC<IAuthForm> = ({ onSubmit }) => (

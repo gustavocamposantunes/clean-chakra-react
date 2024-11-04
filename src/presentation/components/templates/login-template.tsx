@@ -3,9 +3,13 @@ import React from "react"
 import { LoginHeader } from "../atoms"
 import { AuthForm, Layout } from "../organisms"
 
-export const LoginTemplate: React.FC = () => (
+interface ILoginTemplate {
+  onSubmit?(event: React.FormEvent<HTMLDivElement>): void
+}
+
+export const LoginTemplate: React.FC<ILoginTemplate> = ({ onSubmit }) => (
   <Layout>
     <LoginHeader />
-    <AuthForm />
+    <AuthForm onSubmit={onSubmit} />
   </Layout>
 )
