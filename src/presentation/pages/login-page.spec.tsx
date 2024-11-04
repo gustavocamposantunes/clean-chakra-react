@@ -128,4 +128,12 @@ describe("LoginPage", () => {
     simulateValidSubmit()
     expect(authenticationSpy.callsCount).toBe(1)
   })
+
+  it("Should not call Authentication form is invalid", () => {
+    const validationError = faker.word.words()
+    const { authenticationSpy } = makeSut({ validationError })
+    populateEmailField()
+    fireEvent.submit(screen.getByTestId("form"))
+    expect(authenticationSpy.callsCount).toBe(0)
+  })
 })
