@@ -13,9 +13,9 @@ export const CustomInput: React.FC<InputProps> = ({ ...props }) => {
     })
   }
   const getStatus = (): string => {
-    return "🔴"
+    return error ? "🔴" : "🟢"
   }
-  const getError = (): string => error
+  const getError = (): string => error || "Tudo certo"
   return (
     <Group attached>
       <Input {...props} data-testid={props.name} onChange={handleChange} />
