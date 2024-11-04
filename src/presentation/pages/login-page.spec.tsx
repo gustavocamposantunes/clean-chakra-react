@@ -61,6 +61,17 @@ describe("LoginPage", () => {
   it("should show valid password state if Validation succeds", () => {
     const { validationStub } = makeSut()
     validationStub.errorMessage = null
+    const emailInput = screen.getByTestId("email")
+    const email = faker.internet.email()
+    fireEvent.change(emailInput, { target: { value: email } })
+    const emailStatus = screen.getByTestId("email-status")
+    expect(emailStatus.title).toBe("Tudo certo")
+    expect(emailStatus.textContent).toBe("🟢")
+  })
+
+  it("should show valid password state if Validation succeds", () => {
+    const { validationStub } = makeSut()
+    validationStub.errorMessage = null
     const passwordInput = screen.getByTestId("password")
     const password = faker.internet.password()
     fireEvent.change(passwordInput, { target: { value: password } })
