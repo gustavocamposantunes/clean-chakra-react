@@ -8,7 +8,7 @@ export const FormStatus = () => {
   return (
     <Stack direction="column" align="center" data-testid="error-wrap">
       {state.isLoading && <Spinner data-testid="spinner" color="red.700" size="xl" />}
-      {state.mainError && <Heading color="red.700">{state.mainError}</Heading>}
+      {state.mainError && <Heading data-testid="main-error" color="red.700">{state.mainError}</Heading>}
     </Stack>
   )
 }
