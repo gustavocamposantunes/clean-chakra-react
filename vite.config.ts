@@ -11,7 +11,17 @@ export default defineConfig({
     environment: 'happy-dom',
     coverage: {
       reportsDirectory: './coverage',
-      reporter: 'html'
+      reporter: 'html',
+      exclude: [
+        'stories',
+        'src/main',
+        '.storybook',
+        'src/presentation/contexts',
+        'src/presentation/navigation',
+        '**/index.ts',
+        'eslint.config.js',
+        'vite.config.ts'
+      ]
     }
   }
 })
