@@ -1,3 +1,5 @@
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { AuthActions } from '@/presentation/components/molecules';
@@ -15,6 +17,15 @@ const meta = {
         ],
     },
   },  
+  decorators: [
+    (Story) => (
+      <MemoryRouter initialEntries={["/"]}>
+        <Routes>
+          <Route path="/" element={<Story />} />
+        </Routes>
+      </MemoryRouter>
+    )
+  ],
   tags: ['autodocs'],
 } satisfies Meta<typeof AuthActions>;
 

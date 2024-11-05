@@ -1,4 +1,5 @@
 import { Flex } from '@chakra-ui/react';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -18,11 +19,20 @@ const meta = {
     },
   },
   tags: ['autodocs'],
-  decorators: [(Story) => (
-    <Flex w="100vw" justify="center">
-      <Story />
-    </Flex>
-  )]
+  decorators: [
+    (Story) => (
+      <Flex w="100vw" justify="center">
+        <Story />
+      </Flex>
+    ),
+    (Story) => (
+      <MemoryRouter initialEntries={["/"]}>
+        <Routes>
+          <Route path="/" element={<Story />} />
+        </Routes>
+      </MemoryRouter>
+    )
+  ]
 } satisfies Meta<typeof AuthForm>;
 
 export default meta;

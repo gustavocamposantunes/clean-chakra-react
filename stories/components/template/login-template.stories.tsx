@@ -1,3 +1,5 @@
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { LoginTemplate } from '@/presentation/components/templates';
@@ -16,6 +18,15 @@ const meta = {
     },
   },
   tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <MemoryRouter initialEntries={["/"]}>
+        <Routes>
+          <Route path="/" element={<Story />} />
+        </Routes>
+      </MemoryRouter>
+    )
+  ]
 } satisfies Meta<typeof LoginTemplate>;
 
 export default meta;

@@ -1,4 +1,6 @@
 import { Flex } from '@chakra-ui/react';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
+
 
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -17,6 +19,15 @@ const meta = {
         ],
     },
   },
+  decorators: [
+    (Story) => (
+      <MemoryRouter initialEntries={["/"]}>
+        <Routes>
+          <Route path="/" element={<Story />} />
+        </Routes>
+      </MemoryRouter>
+    )
+  ],
   tags: ['autodocs'],
 } satisfies Meta<typeof Layout>;
 
