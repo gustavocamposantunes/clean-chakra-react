@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker"
+import { MemoryRouter, Route, Routes } from "react-router-dom"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import "vitest-localstorage-mock"
 
@@ -8,6 +9,7 @@ import { LoginPage } from "./login-page"
 
 import { InvalidCredentialsError } from "@/domain/errors"
 import { AuthenticationSpy, ValidationStub } from "@/presentation/test"
+
 
 type SutTypes = {
   authenticationSpy: AuthenticationSpy
@@ -21,7 +23,14 @@ const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   const authenticationSpy = new AuthenticationSpy()
   validationStub.errorMessage = params?.validationError
-  render(<LoginPage validation={validationStub} authentication={authenticationSpy} />)
+  render(
+    <MemoryRouter initialEntries={["/"]}>
+      <Routes>
+        <Route path="/" element={<LoginPage validation={validationStub} authentication={authenticationSpy} />} />
+        <Route path="/signup" element={<div data-testid="sign-up-page" />} />
+      </Routes>
+    </MemoryRouter>
+  )
 
   return {
     authenticationSpy
@@ -160,4 +169,11 @@ describe("LoginPage", () => {
     await screen.findByTestId("form")
     expect(localStorage.setItem).toHaveBeenCalledWith("accessToken", authenticationSpy.account.accesToken)
   })
-})
+  it("Should go to sign up page", () => {
+    makeSut()
+    const register = screen.getByTestId("signup")
+    fireEvent.click(register)
+    const signUpPage = screen.getByTestId("sign-up-page")
+    expect(signUpPage).toBeTruthy()
+  })
+})  
