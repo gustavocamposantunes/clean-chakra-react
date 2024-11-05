@@ -1,5 +1,4 @@
 import { faker } from "@faker-js/faker"
-import { MemoryRouter, Route, Routes } from "react-router-dom"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import "vitest-localstorage-mock"
 
@@ -10,6 +9,12 @@ import { LoginPage } from "./login-page"
 import { InvalidCredentialsError } from "@/domain/errors"
 import { AuthenticationSpy, ValidationStub } from "@/presentation/test"
 
+const mockNavigate = vi.fn()
+
+vi.mock("react-router-dom", async () => ({
+  ...await vi.importActual("react-router-dom"),
+  useNavigate: () => mockNavigate
+}))
 
 type SutTypes = {
   authenticationSpy: AuthenticationSpy
@@ -23,14 +28,7 @@ const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   const authenticationSpy = new AuthenticationSpy()
   validationStub.errorMessage = params?.validationError
-  render(
-    <MemoryRouter initialEntries={["/"]}>
-      <Routes>
-        <Route path="/" element={<LoginPage validation={validationStub} authentication={authenticationSpy} />} />
-        <Route path="/signup" element={<div data-testid="sign-up-page" />} />
-      </Routes>
-    </MemoryRouter>
-  )
+  render(<LoginPage validation={validationStub} authentication={authenticationSpy} />)
 
   return {
     authenticationSpy
@@ -168,12 +166,14 @@ describe("LoginPage", () => {
     simulateValidSubmit()
     await screen.findByTestId("form")
     expect(localStorage.setItem).toHaveBeenCalledWith("accessToken", authenticationSpy.account.accesToken)
+    expect(mockNavigate).toHaveBeenCalledWith("/")
   })
+
   it("Should go to sign up page", () => {
     makeSut()
-    const register = screen.getByTestId("signup")
-    fireEvent.click(register)
-    const signUpPage = screen.getByTestId("sign-up-page")
-    expect(signUpPage).toBeTruthy()
+    const signup = screen.getByTestId("signup")
+    fireEvent.click(signup)
+    expect(mockNavigate).toHaveBeenCalledWith("/signup")
+
   })
 })  
