@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 import { Authentication } from "@/domain/usecases"
 import { LoginTemplate } from "@/presentation/components/templates/login-template"
@@ -11,6 +12,7 @@ type Props = {
 }
 
 export const LoginPage: React.FC<Props> = ({ validation, authentication }) => {
+  const navigate = useNavigate()
   const [state, setState] = useState({
     isLoading: false,
     email: "",
@@ -38,6 +40,7 @@ export const LoginPage: React.FC<Props> = ({ validation, authentication }) => {
       })
       const account = await authentication.auth({ email: state.email, password: state.password })
       localStorage.setItem("accessToken", account.accesToken)
+      navigate("/")
     } catch (error) {
       setState({
         ...state,

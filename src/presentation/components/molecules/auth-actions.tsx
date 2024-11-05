@@ -1,6 +1,6 @@
-import { Flex } from "@chakra-ui/react"
+import { Flex, Link } from "@chakra-ui/react"
 import React, { useContext } from "react"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import { CustomButton, FormStatus } from "../atoms"
 
@@ -12,6 +12,7 @@ interface IAuthActions {
 
 export const AuthActions: React.FC<IAuthActions> = ({ onLogin }) => {
   const { state } = useContext(Context)
+  const navigate = useNavigate()
   return (
     <Flex 
       pt={3}
@@ -27,7 +28,7 @@ export const AuthActions: React.FC<IAuthActions> = ({ onLogin }) => {
       >
         Entrar
       </CustomButton>
-      <Link to="/signup" data-testid="signup">Criar conta</Link>
+      <Link onClick={() => navigate("/signup")} href="/signup" data-testid="signup">Criar conta</Link>
       <FormStatus />
     </Flex>
   )
