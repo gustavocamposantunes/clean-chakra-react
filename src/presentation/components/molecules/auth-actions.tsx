@@ -1,5 +1,6 @@
-import { Flex, Link } from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/react"
 import React, { useContext } from "react"
+import { Link } from "react-router-dom"
 
 import { CustomButton, FormStatus } from "../atoms"
 
@@ -26,7 +27,7 @@ export const AuthActions: React.FC<IAuthActions> = ({ onLogin }) => {
       >
         Entrar
       </CustomButton>
-      <Link textAlign="center">Criar conta</Link>
+      <Link to="/signup" data-testid="signup">Criar conta</Link>
       <FormStatus />
     </Flex>
   )
