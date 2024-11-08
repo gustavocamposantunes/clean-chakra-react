@@ -1,1 +1,1 @@
-export const makeApiUrl = () => "http://localhost:3000/api/login"
+export const makeApiUrl = (path: string) => `${import.meta.env.VITE_MOCKOON_URL}${path}`
