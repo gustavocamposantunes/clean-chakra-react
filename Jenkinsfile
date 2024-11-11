@@ -1,5 +1,10 @@
 pipeline{
     agent any
+
+    tools {
+        nodejs 'node23'
+    }
+
     stages{
         stage('Lint') {
             steps {
