@@ -3,15 +3,13 @@ pipeline{
 
     tools {
         nodejs 'node23'
-    }
-
-    
+    }    
 
     stages{
         stage('Install Dependencies') {
             steps {
                 echo 'Installing dependencies...'
-                sh 'npm install' // Instala todas as dependências do projeto
+                sh 'npm install'
             }
         }
         stage('Lint') {
