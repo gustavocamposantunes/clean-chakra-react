@@ -11,7 +11,7 @@ export default defineConfig({
     environment: 'happy-dom',
     coverage: {
       reportsDirectory: './coverage',
-      reporter: 'html',
+      reporter: ['html', 'text'],
       exclude: [
         'stories',
         'src/main',

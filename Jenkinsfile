@@ -20,5 +20,11 @@ pipeline{
                 sh 'npm run lint'
             }
         }
+        stage('Test Coverage') {
+            steps {
+                echo 'Running Coverage...'
+                sh 'npm run test:coverage'
+            }
+        }
     }
 }
