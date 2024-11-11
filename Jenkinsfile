@@ -1,7 +1,7 @@
 pipeline{
     agent any
     stages{
-        stage("Lint") {
+        stage('Lint') {
             echo 'Running ESLint...'
             sh 'npm run lint'
         }
