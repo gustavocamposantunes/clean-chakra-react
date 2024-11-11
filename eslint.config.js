@@ -42,7 +42,8 @@ export default tseslint.config(
           alphabetize: { order: 'asc', caseInsensitive: true }
         }
       ],
-      'react-refresh/only-export-components': 0
+      'react-refresh/only-export-components': 0,
+      'react-hooks/exhaustive-deps': 0
     },
   }
 )
