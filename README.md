@@ -37,3 +37,7 @@ src
 * **Data**: Repositories, APIs, and data handling.
 * **Infra**: External services, third-party integrations.
 * **Main**: Project initialization and setup.
+
+## Project Documentation
+
+[Last Coverage Report](https://coverage-repo.vercel.app/)
