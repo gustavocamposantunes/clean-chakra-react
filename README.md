@@ -40,5 +40,5 @@ src
 
 ## Project Documentation
 
-[Last Published Storybook](https://storybook-repo.vercel.app/?path=/docs/atoms-custom-button--docs)
-[Last Coverage Report](https://coverage-repo.vercel.app/)
+* [Last Published Storybook](https://storybook-repo.vercel.app/?path=/docs/atoms-custom-button--docs)
+* [Last Coverage Report](https://coverage-repo.vercel.app/)
