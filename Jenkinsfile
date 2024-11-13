@@ -48,9 +48,9 @@ pipeline{
                 sh 'npm run build-storybook'
             }
             steps {
-                echo 'Deploying Coverage to GitHub...'
+                echo 'Deploying Storybook to GitHub...'
                 script {
-                    sh 'rm -rf coverage-repo'
+                    sh 'rm -rf storybook-repo'
 
                     withCredentials([string(credentialsId: '79f3d47c-31df-4fc7-9f9b-6f5746833f50', variable: 'GITHUB_TOKEN')]) {
                         sh 'git clone https://${GITHUB_TOKEN}@github.com/gustavocamposantunes/storybook-repo.git'
@@ -60,7 +60,7 @@ pipeline{
 
                     dir('coverage-repo') {
                         sh 'git add .'
-                        sh 'git commit -m "chore: update test coverage - $(date +"%d-%m-%Y %H:%M")"'
+                        sh 'git commit -m "chore: update components storybook - $(date +"%d-%m-%Y %H:%M")"'
                         sh 'git push origin master'
                     }
                 }
