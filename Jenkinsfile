@@ -28,7 +28,6 @@ pipeline{
             steps {
                 echo 'Deploying Coverage to GitHub...'
                 script {
-                    deleteDir()
                     sh 'git config --global user.email "gustavocamposantunes@gmail.com"'
                     sh 'git config --global user.name "Gustavo Decante"'
 
