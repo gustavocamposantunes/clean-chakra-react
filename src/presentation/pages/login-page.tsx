@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-import { Authentication } from "@/domain/usecases"
+import { Authentication, SaveAccessToken } from "@/domain/usecases"
 import { LoginTemplate } from "@/presentation/components/templates/login-template"
 import Context from "@/presentation/contexts/form/form-context"
 import { Validation } from "@/presentation/protocols/validation"
@@ -9,9 +9,14 @@ import { Validation } from "@/presentation/protocols/validation"
 type Props = {
   validation: Validation
   authentication: Authentication
+  saveAccessToken: SaveAccessToken
 }
 
-export const LoginPage: React.FC<Props> = ({ validation, authentication }) => {
+export const LoginPage: React.FC<Props> = ({ 
+  validation, 
+  authentication, 
+  saveAccessToken 
+}) => {
   const navigate = useNavigate()
   const [state, setState] = useState({
     isLoading: false,
@@ -39,7 +44,7 @@ export const LoginPage: React.FC<Props> = ({ validation, authentication }) => {
         isLoading: true
       })
       const account = await authentication.auth({ email: state.email, password: state.password })
-      localStorage.setItem("accessToken", account.accesToken)
+      await saveAccessToken.save(account.accesToken)
       navigate("/")
     } catch (error) {
       setState({
