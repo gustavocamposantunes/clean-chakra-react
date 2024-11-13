@@ -31,6 +31,8 @@ pipeline{
                     sh 'git config --global user.email "gustavocamposantunes@gmail.com"'
                     sh 'git config --global user.name "Gustavo Decante"'
 
+                    sh 'rm -rf coverage-repo'
+
                     withCredentials([string(credentialsId: '79f3d47c-31df-4fc7-9f9b-6f5746833f50', variable: 'GITHUB_TOKEN')]) {
                         sh 'git clone https://${GITHUB_TOKEN}@github.com/gustavocamposantunes/coverage-repo.git'
                     }
