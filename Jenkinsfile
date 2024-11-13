@@ -18,13 +18,11 @@ pipeline{
                 sh 'npm run lint'
             }
         }
-        stage('Test Coverage') {
+        stage('Test and Deploy Coverage') {
             steps {
                 echo 'Running Coverage...'
                 sh 'npm run test:coverage'
             }
-        }
-        stage('Deploy Coverage') {
             steps {
                 echo 'Deploying Coverage to GitHub...'
                 script {
@@ -43,7 +41,30 @@ pipeline{
                     }
                 }
             }
+        }
+        stage('Build and Deploy Storybook') {
+            steps {
+                echo 'Building Storybook'
+                sh 'npm run build-storybook'
+            }
+            steps {
+                echo 'Deploying Coverage to GitHub...'
+                script {
+                    sh 'rm -rf coverage-repo'
 
+                    withCredentials([string(credentialsId: '79f3d47c-31df-4fc7-9f9b-6f5746833f50', variable: 'GITHUB_TOKEN')]) {
+                        sh 'git clone https://${GITHUB_TOKEN}@github.com/gustavocamposantunes/storybook-repo.git'
+                    }
+
+                    sh 'cp -r storybook-static/. storybook-repo/'
+
+                    dir('coverage-repo') {
+                        sh 'git add .'
+                        sh 'git commit -m "chore: update test coverage - $(date +"%d-%m-%Y %H:%M")"'
+                        sh 'git push origin master'
+                    }
+                }
+            }
         }
     }
 }
