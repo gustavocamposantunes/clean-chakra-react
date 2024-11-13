@@ -41,7 +41,7 @@ pipeline{
 
                     dir('coverage-repo') {
                         sh 'git add .'
-                        sh 'git commit -m "chore: update test coverage"'
+                        sh 'git commit -m "chore: update test coverage - $(date +"%d-%m-%Y %H:%M")"'
                         sh 'git push origin master'
                     }
                 }
