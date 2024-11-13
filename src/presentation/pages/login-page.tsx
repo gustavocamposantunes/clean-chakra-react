@@ -44,7 +44,8 @@ export const LoginPage: React.FC<Props> = ({
         isLoading: true
       })
       const account = await authentication.auth({ email: state.email, password: state.password })
-      await saveAccessToken.save(account.accesToken)
+      console.info(account.accessToken)
+      await saveAccessToken.save(account.accessToken)
       navigate("/")
     } catch (error) {
       setState({

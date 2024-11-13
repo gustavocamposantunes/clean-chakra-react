@@ -183,7 +183,7 @@ describe("LoginPage", () => {
   it("Should calls SaveAccessToken on success", async () => {
     const { authenticationSpy, saveAccessTokenMock } = makeSut()
     await simulateValidSubmit()
-    expect(saveAccessTokenMock.accessToken).toBe(authenticationSpy.account.accesToken)
+    expect(saveAccessTokenMock.accessToken).toBe(authenticationSpy.account.accessToken)
     expect(mockNavigate).toHaveBeenCalledWith("/")
   })
 
