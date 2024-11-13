@@ -30,3 +30,4 @@ coverage
 .husky
 
 *storybook.log
+storybook-static
