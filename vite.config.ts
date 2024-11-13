@@ -15,6 +15,7 @@ export default defineConfig({
       exclude: [
         'stories',
         'src/main',
+        'coverage-repo',
         '.storybook',
         'src/presentation/contexts',
         'src/presentation/navigation',
