@@ -187,6 +187,16 @@ describe("LoginPage", () => {
     expect(mockNavigate).toHaveBeenCalledWith("/")
   })
 
+  it("Should present error if SaveAccessToken fails", async () => {
+    const { saveAccessTokenMock } = makeSut()
+    const error = new InvalidCredentialsError()
+    vi.spyOn(saveAccessTokenMock, "save").mockRejectedValueOnce(error)
+    await simulateValidSubmit()
+    testElementText("main-error", error.message)
+    testErrorWrapChildCount(1)
+  })
+
+
   it("Should go to sign up page", () => {
     makeSut()
     const signup = screen.getByTestId("signup")
