@@ -1,13 +1,12 @@
 import { faker } from "@faker-js/faker"
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
-import "vitest-localstorage-mock"
+import { afterEach, describe, expect, it, vi } from "vitest"
 
 import { render, screen, fireEvent, cleanup, waitFor } from "../test/test-utils"
 
 import { LoginPage } from "./login-page"
 
 import { InvalidCredentialsError } from "@/domain/errors"
-import { AuthenticationSpy, ValidationStub } from "@/presentation/test"
+import { AuthenticationSpy, SaveAccessTokenMock, ValidationStub } from "@/presentation/test"
 
 const mockNavigate = vi.fn()
 
@@ -18,6 +17,7 @@ vi.mock("react-router-dom", async () => ({
 
 type SutTypes = {
   authenticationSpy: AuthenticationSpy
+  saveAccessTokenMock: SaveAccessTokenMock
 }
 
 type SutParams = {
@@ -27,11 +27,19 @@ type SutParams = {
 const makeSut = (params?: SutParams): SutTypes => {    
   const validationStub = new ValidationStub()
   const authenticationSpy = new AuthenticationSpy()
+  const saveAccessTokenMock = new SaveAccessTokenMock()
   validationStub.errorMessage = params?.validationError
-  render(<LoginPage validation={validationStub} authentication={authenticationSpy} />)
+  render(
+    <LoginPage 
+      validation={validationStub} 
+      authentication={authenticationSpy}
+      saveAccessToken={saveAccessTokenMock}
+    />
+  )
 
   return {
-    authenticationSpy
+    authenticationSpy,
+    saveAccessTokenMock
   }
 }
 
@@ -89,10 +97,6 @@ const testButtonIsDisabled = (fieldName: string, isDisabled: boolean): void => {
 
 describe("LoginPage", () => {
   afterEach(cleanup)
-
-  beforeEach(() => {
-    localStorage.clear()
-  })
 
   it("Should start with initial state", () => {
     const validationError = faker.word.words()
@@ -176,10 +180,10 @@ describe("LoginPage", () => {
     testErrorWrapChildCount(1)
   })
 
-  it("Should add accessToken to localstorage on success", async () => {
-    const { authenticationSpy } = makeSut()
+  it("Should calls SaveAccessToken on success", async () => {
+    const { authenticationSpy, saveAccessTokenMock } = makeSut()
     await simulateValidSubmit()
-    expect(localStorage.setItem).toHaveBeenCalledWith("accessToken", authenticationSpy.account.accesToken)
+    expect(saveAccessTokenMock.accessToken).toBe(authenticationSpy.account.accesToken)
     expect(mockNavigate).toHaveBeenCalledWith("/")
   })
 
