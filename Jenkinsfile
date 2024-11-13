@@ -18,11 +18,13 @@ pipeline{
                 sh 'npm run lint'
             }
         }
-        stage('Test and Deploy Coverage') {
+        stage('Test Coverage') {
             steps {
                 echo 'Running Coverage...'
                 sh 'npm run test:coverage'
             }
+        }
+        stage('Deploy Coverage') {
             steps {
                 echo 'Deploying Coverage to GitHub...'
                 script {
@@ -42,11 +44,13 @@ pipeline{
                 }
             }
         }
-        stage('Build and Deploy Storybook') {
+        stage('Build Storybook') {
             steps {
                 echo 'Building Storybook'
                 sh 'npm run build-storybook'
             }
+        }
+        stage('Deploy Storybook') {
             steps {
                 echo 'Deploying Storybook to GitHub...'
                 script {
