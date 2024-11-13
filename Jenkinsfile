@@ -28,6 +28,7 @@ pipeline{
             steps {
                 echo 'Deploying Coverage to GitHub...'
                 script {
+                    deleteDir()
                     sh 'git config --global user.email "gustavocamposantunes@gmail.com"'
                     sh 'git config --global user.name "Gustavo Decante"'
 
@@ -35,7 +36,7 @@ pipeline{
                         sh 'git clone https://${GITHUB_TOKEN}@github.com/gustavocamposantunes/coverage-repo.git'
                     }
 
-                    sh 'cp -r coverage/ coverage-repo/'
+                    sh 'cp -r coverage/. coverage-repo/'
 
                     dir('coverage-repo') {
                         sh 'git add .'
