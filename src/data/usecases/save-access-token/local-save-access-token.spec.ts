@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { LocalSaveAccessToken } from "./local-save-access-token";
 
@@ -27,5 +27,12 @@ describe("LocalSaveAccessToken", () => {
     await sut.save(accessToken)
     expect(setStorageMock.key).toBe('accessToken')
     expect(setStorageMock.value).toBe(accessToken)
+  })
+
+  it("Should throw if SetStorage throws", async () => {
+    const { sut, setStorageMock } = makeSut()
+    vi.spyOn(setStorageMock, 'set').mockRejectedValueOnce(new Error())
+    const promise = sut.save(faker.string.uuid())
+    expect(promise).rejects.toThrow(new Error())
   })
 })
