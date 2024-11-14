@@ -2,11 +2,11 @@ import { fn } from '@storybook/test';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { LoginHeader } from '@/presentation/components/atoms';
+import { PublicHeader } from '@/presentation/components/atoms';
 
 const meta = {
   title: 'atoms/login-header',
-  component: LoginHeader,
+  component: PublicHeader,
   parameters: {
     layout: 'centered',
   },
@@ -15,7 +15,7 @@ const meta = {
     backgroundColor: { control: 'color' },
   },
   args: { onClick: fn() },
-} satisfies Meta<typeof LoginHeader>;
+} satisfies Meta<typeof PublicHeader>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

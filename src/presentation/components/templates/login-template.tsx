@@ -1,6 +1,6 @@
 import React from "react"
 
-import { LoginHeader } from "../atoms"
+import { PublicHeader } from "../atoms"
 import { AuthForm, Layout } from "../organisms"
 
 interface ILoginTemplate {
@@ -9,7 +9,7 @@ interface ILoginTemplate {
 
 export const LoginTemplate: React.FC<ILoginTemplate> = ({ onSubmit }) => (
   <Layout>
-    <LoginHeader />
+    <PublicHeader />
     <AuthForm onSubmit={onSubmit} />
   </Layout>
 )
