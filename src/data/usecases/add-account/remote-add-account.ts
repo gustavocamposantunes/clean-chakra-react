@@ -13,7 +13,6 @@ export class RemoteAddAccount implements AddAccount {
       url: this.url,
       body: params
     })
-    console.info(params)
     return null
   }
 }
