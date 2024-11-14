@@ -1,9 +1,9 @@
 import { faker } from "@faker-js/faker"
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest"
 
-import { CompareFieldValidation } from "./compare-fields-validation";
+import { CompareFieldValidation } from "./compare-fields-validation"
 
-import { InvalidFieldError } from "@/validation/errors";
+import { InvalidFieldError } from "@/validation/errors"
 
 const makeSut = (valueToCompare: string): CompareFieldValidation => new CompareFieldValidation(faker.database.column(), valueToCompare)
 
