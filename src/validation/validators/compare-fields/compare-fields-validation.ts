@@ -7,7 +7,6 @@ export class CompareFieldValidation implements FieldValidation {
     private readonly valueToCompare: string
   ) {}
   validate(value: string): Error {
-    console.info(value, this.valueToCompare)
-    return new InvalidFieldError()
+    return value !== this.valueToCompare ? new InvalidFieldError() : null
   }  
 }
