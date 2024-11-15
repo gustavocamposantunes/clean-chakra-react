@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { PublicHeader } from '@/presentation/components/atoms';
 
 const meta = {
-  title: 'atoms/login-header',
+  title: 'atoms/public-header',
   component: PublicHeader,
   parameters: {
     layout: 'centered',
