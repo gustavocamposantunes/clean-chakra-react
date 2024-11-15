@@ -3,6 +3,7 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { FormActions } from '@/presentation/components/molecules';
 import { AuthForm } from '@/presentation/components/organisms';
 import Context from '@/presentation/contexts/form/form-context';
 
@@ -32,7 +33,16 @@ const meta = {
         </Routes>
       </MemoryRouter>
     )
-  ]
+  ],
+  args: {
+    actions: (
+      <FormActions 
+        buttonText="Entrar"
+        linkText="Criar conta"
+        redirectTo="/signup"
+      />
+    )
+  }
 } satisfies Meta<typeof AuthForm>;
 
 export default meta;

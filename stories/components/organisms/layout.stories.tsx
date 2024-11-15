@@ -4,6 +4,7 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { FormActions } from '@/presentation/components/molecules';
 import { Layout, AuthForm } from '@/presentation/components/organisms';
 import Context from '@/presentation/contexts/form/form-context';
 
@@ -49,7 +50,17 @@ export const Primary: Story = {
 
 export const WithForm: Story = {
   args: {
-    children: <Flex w="100%" justify="center" mt="8"><AuthForm /></Flex>
+    children: (
+      <Flex w="100%" justify="center" mt="8">
+        <AuthForm actions={(
+          <FormActions 
+            buttonText="Entrar"
+            linkText="Criar conta"
+            redirectTo="/signup"
+          />
+        )}/>
+      </Flex>
+    )
   },
   decorators: [
     (Story) => (

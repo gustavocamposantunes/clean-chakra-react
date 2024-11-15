@@ -1,13 +1,17 @@
 import { Flex, Heading } from "@chakra-ui/react"
-import React from "react"
+import React, { ReactNode } from "react"
 
-import { AuthActions, AuthFields } from "../molecules"
+import { AuthFields } from "../molecules"
 
 interface IAuthForm {
   onSubmit?(event: React.FormEvent<HTMLDivElement>): void
+  actions: ReactNode
 }
 
-export const AuthForm: React.FC<IAuthForm> = ({ onSubmit }) => (
+export const AuthForm: React.FC<IAuthForm> = ({ 
+  onSubmit,
+  actions
+}) => (
   <Flex 
     as="form"
     data-testid="form"
@@ -30,6 +34,6 @@ export const AuthForm: React.FC<IAuthForm> = ({ onSubmit }) => (
   >
     <Heading as="h2" color="gray.700" textAlign="center" textTransform="uppercase">Login</Heading>
     <AuthFields />
-    <AuthActions />
+    {actions}
   </Flex>
 )
