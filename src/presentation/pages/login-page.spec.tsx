@@ -1,11 +1,12 @@
 import { faker } from "@faker-js/faker"
 import { afterEach, describe, expect, it, vi } from "vitest"
 
-import { render, screen, fireEvent, cleanup, waitFor } from "../test/test-utils"
+
 
 import { LoginPage } from "./login-page"
 
 import { InvalidCredentialsError } from "@/domain/errors"
+import { Helper, render, screen, fireEvent, cleanup, waitFor } from "@/presentation/test"
 import { AuthenticationSpy, SaveAccessTokenMock, ValidationStub } from "@/presentation/test"
 
 const mockNavigate = vi.fn()
@@ -68,17 +69,6 @@ const populatePasswordField = (
   fireEvent.change(passwordInput, { target: { value: password } })
 }
 
-const testStatusForField = (fieldName: string, validationError?: string): void => {
-  const field = screen.getByTestId(`${fieldName}-status`)
-  expect(field.title).toBe(validationError || "Tudo certo")
-  expect(field.textContent).toBe(validationError ? "🔴" : "🟢")
-}
-
-const testErrorWrapChildCount = (count: number): void => {
-  const error = screen.getByTestId("error-wrap")
-    expect(error.childElementCount).toBe(count)
-}
-
 const testElementExists = (fieldName: string): void => {
   const el = screen.getByTestId(fieldName)
   expect(el).toBeTruthy()
@@ -89,11 +79,6 @@ const testElementText = (fieldName: string, text: string): void => {
   expect(el.textContent).toBe(text)
 }
 
-const testButtonIsDisabled = (fieldName: string, isDisabled: boolean): void => {
-  const button = screen.getByTestId(fieldName) as HTMLButtonElement
-  expect(button.disabled).toBe(isDisabled)
-}
-
 
 describe("LoginPage", () => {
   afterEach(cleanup)
@@ -101,43 +86,43 @@ describe("LoginPage", () => {
   it("Should start with initial state", () => {
     const validationError = faker.word.words()
     makeSut({ validationError })
-    testErrorWrapChildCount(0)
-    testButtonIsDisabled("submit-button", true)
-    testStatusForField("email", validationError)
-    testStatusForField("password", validationError)
+    Helper.testChildCount("error-wrap", 0)
+    Helper.testButtonIsDisabled("submit-button", true)
+    Helper.testStatusForField("email", validationError)
+    Helper.testStatusForField("password", validationError)
   })
 
   it("Should email error if Validation fails", () => {
     const validationError = faker.word.words()
     makeSut({ validationError })
     populateEmailField()
-    testStatusForField("email", validationError)
+    Helper.testStatusForField("email", validationError)
   })
 
   it("Should password error if Validation fails", () => {
     const validationError = faker.word.words()
     makeSut({ validationError })
     populatePasswordField()
-    testStatusForField("password", validationError)
+    Helper.testStatusForField("password", validationError)
   })
 
   it("Should show valid password state if Validation succeds", () => {
     makeSut()
     populateEmailField()
-    testStatusForField("email")
+    Helper.testStatusForField("email")
   })
 
   it("Should show valid password state if Validation succeds", () => {
     makeSut()
     populatePasswordField()
-    testStatusForField("password")
+    Helper.testStatusForField("password")
   })
 
   it("Should enable submit button if form is valid", () => {
     makeSut()
     populateEmailField()
     populatePasswordField()
-    testButtonIsDisabled("submit-button", false)
+    Helper.testButtonIsDisabled("submit-button", false)
   })
 
   it("Should show spinner on submit", async () => {
@@ -177,7 +162,7 @@ describe("LoginPage", () => {
     vi.spyOn(authenticationSpy, "auth").mockRejectedValueOnce(error)
     await simulateValidSubmit()
     testElementText("main-error", error.message)
-    testErrorWrapChildCount(1)
+    Helper.testChildCount("error-wrap", 1)
   })
 
   it("Should calls SaveAccessToken on success", async () => {
@@ -193,7 +178,7 @@ describe("LoginPage", () => {
     vi.spyOn(saveAccessTokenMock, "save").mockRejectedValueOnce(error)
     await simulateValidSubmit()
     testElementText("main-error", error.message)
-    testErrorWrapChildCount(1)
+    Helper.testChildCount("error-wrap", 1)
   })
 
 
