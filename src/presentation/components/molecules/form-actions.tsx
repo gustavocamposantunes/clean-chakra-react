@@ -6,11 +6,19 @@ import { CustomButton, FormStatus } from "../atoms"
 
 import Context from "@/presentation/contexts/form/form-context"
 
-interface IAuthActions {
+interface IFormActions {
   onLogin?(): void
+  buttonText: string
+  linkText: string
+  redirectTo: string
 }
 
-export const AuthActions: React.FC<IAuthActions> = ({ onLogin }) => {
+export const FormActions: React.FC<IFormActions> = ({ 
+  onLogin,
+  buttonText,
+  linkText,
+  redirectTo
+}) => {
   const { state } = useContext(Context)
   const navigate = useNavigate()
   return (
@@ -26,9 +34,9 @@ export const AuthActions: React.FC<IAuthActions> = ({ onLogin }) => {
         data-testid="submit-button"
         disabled={!!state.emailError || !!state.passwordError}
       >
-        Entrar
+        {buttonText}
       </CustomButton>
-      <Link onClick={() => navigate("/signup")} href="/signup" data-testid="signup">Criar conta</Link>
+      <Link onClick={() => navigate(redirectTo)} data-testid="signup">{linkText}</Link>
       <FormStatus />
     </Flex>
   )

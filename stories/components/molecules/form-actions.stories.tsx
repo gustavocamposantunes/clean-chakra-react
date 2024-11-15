@@ -2,12 +2,12 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { AuthActions } from '@/presentation/components/molecules';
+import { FormActions } from '@/presentation/components/molecules';
 import Context from "@/presentation/contexts/form/form-context"
 
 const meta = {
-  title: 'molecules/auth-actions',
-  component: AuthActions,
+  title: 'molecules/form-actions',
+  component: FormActions,
   parameters: {
     layout: 'centered',
     backgrounds: {
@@ -16,7 +16,7 @@ const meta = {
             { name: 'custom-background', value: '#f0f0f0' },
         ],
     },
-  },  
+  },
   decorators: [
     (Story) => (
       <MemoryRouter initialEntries={["/"]}>
@@ -27,7 +27,11 @@ const meta = {
     )
   ],
   tags: ['autodocs'],
-} satisfies Meta<typeof AuthActions>;
+  args: {
+    buttonText: 'Entrar',
+    linkText: 'Criar conta'
+  }
+} satisfies Meta<typeof FormActions>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
