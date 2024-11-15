@@ -28,7 +28,7 @@ const meta = {
   ],
   tags: ['autodocs'],
   args: {
-    buttonText: 'Entrar',
+    submitButtonText: 'Entrar',
     linkText: 'Criar conta'
   }
 } satisfies Meta<typeof FormActions>;
@@ -38,6 +38,19 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {},
+  decorators: [
+    (Story) => (
+      <Context.Provider value={{ state: { isLoading: false, mainError: "" }}}>
+        <Story />
+      </Context.Provider>
+    )
+  ],
+};
+
+export const Disabled: Story = {
+  args: {
+    submitButtonDisabled: true
+  },
   decorators: [
     (Story) => (
       <Context.Provider value={{ state: { isLoading: false, mainError: "" }}}>

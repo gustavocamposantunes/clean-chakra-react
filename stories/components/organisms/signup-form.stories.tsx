@@ -37,7 +37,7 @@ const meta = {
   args: {
     actions: (
       <FormActions 
-        buttonText="Entrar"
+        submitButtonText="Entrar"
         linkText="Voltar para login"
         redirectTo="/signup"
       />

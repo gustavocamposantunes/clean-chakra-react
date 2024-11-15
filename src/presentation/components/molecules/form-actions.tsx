@@ -1,25 +1,25 @@
 import { Flex, Link } from "@chakra-ui/react"
-import React, { useContext } from "react"
+import React from "react"
 import { useNavigate } from "react-router-dom"
 
 import { CustomButton, FormStatus } from "../atoms"
 
-import Context from "@/presentation/contexts/form/form-context"
 
 interface IFormActions {
   onLogin?(): void
-  buttonText: string
+  submitButtonText: string
+  submitButtonDisabled: boolean
   linkText: string
   redirectTo: string
 }
 
 export const FormActions: React.FC<IFormActions> = ({ 
   onLogin,
-  buttonText,
+  submitButtonText,
+  submitButtonDisabled,
   linkText,
   redirectTo
 }) => {
-  const { state } = useContext(Context)
   const navigate = useNavigate()
   return (
     <Flex 
@@ -32,9 +32,9 @@ export const FormActions: React.FC<IFormActions> = ({
         type="submit"
         onClick={onLogin}
         data-testid="submit-button"
-        disabled={!!state.emailError || !!state.passwordError}
+        disabled={submitButtonDisabled}
       >
-        {buttonText}
+        {submitButtonText}
       </CustomButton>
       <Link onClick={() => navigate(redirectTo)} data-testid="signup">{linkText}</Link>
       <FormStatus />

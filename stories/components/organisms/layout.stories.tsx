@@ -54,7 +54,7 @@ export const WithForm: Story = {
       <Flex w="100%" justify="center" mt="8">
         <AuthForm actions={(
           <FormActions 
-            buttonText="Entrar"
+            submitButtonText="Entrar"
             linkText="Criar conta"
             redirectTo="/signup"
           />
