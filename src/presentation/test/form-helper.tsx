@@ -1,6 +1,7 @@
+import { faker } from "@faker-js/faker"
 import { expect } from "vitest"
 
-import { screen } from "@/presentation/test/test-utils"
+import { fireEvent, screen } from "@/presentation/test/test-utils"
 
 export const testChildCount = (fieldName: string, count: number): void => {
   const el = screen.getByTestId(fieldName)
@@ -16,4 +17,12 @@ export const testStatusForField = (fieldName: string, validationError?: string):
   const fieldStatus = screen.getByTestId(`${fieldName}-status`)
   expect(fieldStatus.title).toBe(validationError || "Tudo certo")
   expect(fieldStatus.textContent).toBe(validationError ? "🔴" : "🟢")
+}
+
+export const populateField = (
+  fieldName: string,
+  value = faker.internet.username()
+): void => {
+  const input = screen.getByTestId(fieldName)
+  fireEvent.change(input, { target: { value: value } })
 }

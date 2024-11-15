@@ -1,8 +1,6 @@
 import { faker } from "@faker-js/faker"
 import { afterEach, describe, expect, it, vi } from "vitest"
 
-
-
 import { LoginPage } from "./login-page"
 
 import { InvalidCredentialsError } from "@/domain/errors"
@@ -48,25 +46,11 @@ const simulateValidSubmit = async (
   email = faker.internet.email(),
   password = faker.internet.password()
 ): Promise<void> => {
-  populateEmailField(email)
-  populatePasswordField(password)
+  Helper.populateField("email", email)
+  Helper.populateField("password", password)
   const form = screen.getByTestId("form")
   fireEvent.submit(form)
   await waitFor(() => form)
-}
-
-const populateEmailField = (
-  email = faker.internet.email(),
-): void => {
-  const emailInput = screen.getByTestId("email")
-  fireEvent.change(emailInput, { target: { value: email } })
-}
-
-const populatePasswordField = (
-  password = faker.internet.password()
-): void => {
-  const passwordInput = screen.getByTestId("password")
-  fireEvent.change(passwordInput, { target: { value: password } })
 }
 
 const testElementExists = (fieldName: string): void => {
@@ -95,33 +79,33 @@ describe("LoginPage", () => {
   it("Should email error if Validation fails", () => {
     const validationError = faker.word.words()
     makeSut({ validationError })
-    populateEmailField()
+    Helper.populateField("email")
     Helper.testStatusForField("email", validationError)
   })
 
   it("Should password error if Validation fails", () => {
     const validationError = faker.word.words()
     makeSut({ validationError })
-    populatePasswordField()
+    Helper.populateField("password")
     Helper.testStatusForField("password", validationError)
   })
 
-  it("Should show valid password state if Validation succeds", () => {
+  it("Should show valid email state if Validation succeds", () => {
     makeSut()
-    populateEmailField()
+    Helper.populateField("email")
     Helper.testStatusForField("email")
   })
 
   it("Should show valid password state if Validation succeds", () => {
     makeSut()
-    populatePasswordField()
+    Helper.populateField("password")
     Helper.testStatusForField("password")
   })
 
   it("Should enable submit button if form is valid", () => {
     makeSut()
-    populateEmailField()
-    populatePasswordField()
+    Helper.populateField("email")
+    Helper.populateField("password")
     Helper.testButtonIsDisabled("submit-button", false)
   })
 

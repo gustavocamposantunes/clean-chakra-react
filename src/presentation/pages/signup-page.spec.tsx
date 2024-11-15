@@ -3,7 +3,7 @@ import { afterEach, describe, it, vi } from "vitest"
 
 import { SignUpPage } from "./signup-page"
 
-import { cleanup, fireEvent, Helper, render, screen, ValidationStub } from "@/presentation/test"
+import { cleanup, Helper, render, ValidationStub } from "@/presentation/test"
 
 const mockNavigate = vi.fn()
 
@@ -27,14 +27,6 @@ const makeSut = (params?: SutParams) => {
   )
 }
 
-const populateField = (
-  fieldName: string,
-  value = faker.internet.username()
-): void => {
-  const input = screen.getByTestId(fieldName)
-  fireEvent.change(input, { target: { value: value } })
-}
-
 describe("SignupPage", () => {
   afterEach(cleanup)
 
@@ -52,7 +44,7 @@ describe("SignupPage", () => {
   it("Should show name error if Validation fails", () => {
     const validationError = faker.word.words()
     makeSut({ validationError })
-    populateField("name")
+    Helper.populateField("name")
     Helper.testStatusForField("name", validationError)
   })
 })
