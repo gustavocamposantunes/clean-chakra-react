@@ -52,11 +52,6 @@ const simulateValidSubmit = async (
   await waitFor(() => form)
 }
 
-const testElementText = (fieldName: string, text: string): void => {
-  const el = screen.getByTestId(fieldName)
-  expect(el.textContent).toBe(text)
-}
-
 describe("SignupPage", () => {
   afterEach(cleanup)
 
@@ -171,7 +166,7 @@ describe("SignupPage", () => {
     const error = new EmailInUseError()
     vi.spyOn(addAccountSpy, "add").mockRejectedValueOnce(error)
     await simulateValidSubmit()
-    testElementText("main-error", error.message)
+    Helper.testElementText("main-error", error.message)
     Helper.testChildCount("error-wrap", 1)
   })
 })
