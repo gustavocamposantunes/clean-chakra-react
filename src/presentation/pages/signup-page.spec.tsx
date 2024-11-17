@@ -189,4 +189,12 @@ describe("SignupPage", () => {
     Helper.testElementText("main-error", error.message)
     Helper.testChildCount("error-wrap", 1)
   })
+
+  it("Should go to login page", () => {
+    makeSut()
+    const loginLink = screen.getByTestId("login")
+    fireEvent.click(loginLink)
+    expect(mockNavigate).toHaveBeenCalledWith("/login")
+
+  })
 })
