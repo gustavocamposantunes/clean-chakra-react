@@ -39,6 +39,7 @@ export const SignUpPage: React.FC<Props> = ({
 
   const handleSubmit = async (event: React.FormEvent<HTMLDivElement>): Promise<void> => {
     event.preventDefault()
+    if (state.isLoading) return
     setState({
       ...state,
       isLoading: true
