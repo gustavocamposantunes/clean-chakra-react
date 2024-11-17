@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 
+import { AddAccount } from "@/domain/usecases"
 import { SignUpTemplate } from "@/presentation/components/templates"
 import Context from "@/presentation/contexts/form/form-context"
 import { Validation } from "@/presentation/protocols/validation"
@@ -7,9 +8,11 @@ import { Validation } from "@/presentation/protocols/validation"
 
 type Props = {
   validation: Validation
+  addAccount: AddAccount
 }
 export const SignUpPage: React.FC<Props> = ({
-  validation
+  validation,
+  addAccount
 }) => {
   const [state, setState] = useState({
     isLoading: false,
@@ -39,6 +42,12 @@ export const SignUpPage: React.FC<Props> = ({
     setState({
       ...state,
       isLoading: true
+    })
+    await addAccount.add({
+      name: state.name,
+      email: state.email,
+      password: state.password,
+      passwordConfirmation: state.passwordConfirmation
     })
   }
 
