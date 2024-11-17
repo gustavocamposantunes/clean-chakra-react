@@ -180,4 +180,13 @@ describe("SignupPage", () => {
     expect(saveAccessTokenMock.accessToken).toBe(addAccountSpy.account.accessToken)
     expect(mockNavigate).toHaveBeenCalledWith("/")
   })
+
+  it("Should present error if SaveAccessToken fails", async () => {
+    const { saveAccessTokenMock } = makeSut()
+    const error = new EmailInUseError()
+    vi.spyOn(saveAccessTokenMock, "save").mockRejectedValueOnce(error)
+    await simulateValidSubmit()
+    Helper.testElementText("main-error", error.message)
+    Helper.testChildCount("error-wrap", 1)
+  })
 })
