@@ -1,9 +1,9 @@
 import { faker } from "@faker-js/faker"
-import { afterEach, describe, it, vi } from "vitest"
+import { afterEach, describe, expect, it, vi } from "vitest"
 
 import { SignUpPage } from "./signup-page"
 
-import { cleanup, Helper, render, ValidationStub } from "@/presentation/test"
+import { cleanup, fireEvent, Helper, render, screen, ValidationStub, waitFor } from "@/presentation/test"
 
 const mockNavigate = vi.fn()
 
@@ -25,6 +25,25 @@ const makeSut = (params?: SutParams) => {
       validation={validationStub}
     />
   )
+}
+
+const simulateValidSubmit = async (
+  name = faker.internet.displayName(),
+  email = faker.internet.email(),
+  password = faker.internet.password()
+): Promise<void> => {
+  Helper.populateField("name", name)
+  Helper.populateField("email", email)
+  Helper.populateField("password", password)
+  Helper.populateField("passwordConfirmation", password)
+  const form = screen.getByTestId("form")
+  fireEvent.submit(form)
+  await waitFor(() => form)
+}
+
+const testElementExists = (fieldName: string): void => {
+  const el = screen.getByTestId(fieldName)
+  expect(el).toBeTruthy()
 }
 
 describe("SignupPage", () => {
@@ -100,5 +119,11 @@ describe("SignupPage", () => {
     Helper.populateField("password")
     Helper.populateField("passwordConfirmation")
     Helper.testButtonIsDisabled("submit-button", false)
+  })
+
+  it("Should show spinner on submit", async () => {
+    makeSut()
+    await simulateValidSubmit()
+    testElementExists("spinner")
   })
 })
