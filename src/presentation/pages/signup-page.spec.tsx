@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from "vitest"
 
 import { SignUpPage } from "./signup-page"
 
+import { EmailInUseError } from "@/domain/errors"
 import { AddAccountSpy, cleanup, fireEvent, Helper, render, screen, ValidationStub, waitFor } from "@/presentation/test"
 
 const mockNavigate = vi.fn()
@@ -49,6 +50,11 @@ const simulateValidSubmit = async (
   const form = screen.getByTestId("form")
   fireEvent.submit(form)
   await waitFor(() => form)
+}
+
+const testElementText = (fieldName: string, text: string): void => {
+  const el = screen.getByTestId(fieldName)
+  expect(el.textContent).toBe(text)
 }
 
 describe("SignupPage", () => {
@@ -158,5 +164,14 @@ describe("SignupPage", () => {
     const { addAccountSpy } = makeSut({ validationError })
     await simulateValidSubmit()
     expect(addAccountSpy.callsCount).toBe(0)
+  })
+
+  it("Should present error if AddAccount fails", async () => {
+    const { addAccountSpy } = makeSut()
+    const error = new EmailInUseError()
+    vi.spyOn(addAccountSpy, "add").mockRejectedValueOnce(error)
+    await simulateValidSubmit()
+    testElementText("main-error", error.message)
+    Helper.testChildCount("error-wrap", 1)
   })
 })
