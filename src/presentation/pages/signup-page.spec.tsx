@@ -145,4 +145,11 @@ describe("SignupPage", () => {
       passwordConfirmation: password
     })
   })
+
+  it("Should not call AddAccount form is invalid", async () => {
+    const { addAccountSpy } = makeSut()
+    await simulateValidSubmit()
+    await simulateValidSubmit()
+    expect(addAccountSpy.callsCount).toBe(1)
+  })
 })
