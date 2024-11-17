@@ -15,7 +15,8 @@ export const SignUpPage: React.FC<Props> = ({
     isLoading: false,
     name: "",
     nameError: "",
-    emailError: "Campo obrigatório",
+    email: "",
+    emailError: "",
     passwordError: "Campo obrigatório",
     passwordConfirmationError: "Campo obrigatório",
     mainError: ""
@@ -24,7 +25,8 @@ export const SignUpPage: React.FC<Props> = ({
   useEffect(() => {
     setState({
       ...state,
-      nameError: validation.validate('name', state.name)
+      nameError: validation.validate('name', state.name),
+      emailError: validation.validate('email', state.email)
     })    
   }, [state.name])
 
