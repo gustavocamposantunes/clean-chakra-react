@@ -86,4 +86,10 @@ describe("SignupPage", () => {
     Helper.populateField("password")
     Helper.testStatusForField("password")
   })
+
+  it("Should show valid passwordConfirmation state if Validation succeds", () => {
+    makeSut()
+    Helper.populateField("passwordConfirmation")
+    Helper.testStatusForField("passwordConfirmation")
+  })
 })
