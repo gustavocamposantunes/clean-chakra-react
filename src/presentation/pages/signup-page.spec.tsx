@@ -74,4 +74,10 @@ describe("SignupPage", () => {
     Helper.populateField("name")
     Helper.testStatusForField("name")
   })
+
+  it("Should show valid email state if Validation succeds", () => {
+    makeSut()
+    Helper.populateField("email")
+    Helper.testStatusForField("email")
+  })
 })
