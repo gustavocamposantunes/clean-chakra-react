@@ -1,9 +1,9 @@
 import { faker } from "@faker-js/faker"
-import { afterEach, describe, it, vi } from "vitest"
+import { afterEach, describe, expect, it, vi } from "vitest"
 
 import { SignUpPage } from "./signup-page"
 
-import { cleanup, fireEvent, Helper, render, screen, ValidationStub, waitFor } from "@/presentation/test"
+import { AddAccountSpy, cleanup, fireEvent, Helper, render, screen, ValidationStub, waitFor } from "@/presentation/test"
 
 const mockNavigate = vi.fn()
 
@@ -12,19 +12,29 @@ vi.mock("react-router-dom", async () => ({
   useNavigate: () => mockNavigate
 }))
 
+type SutTypes = {
+  addAccountSpy: AddAccountSpy
+}
+
 type SutParams = {
   validationError: string
 }
 
-const makeSut = (params?: SutParams) => {
+const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
+  const addAccountSpy = new AddAccountSpy()
   validationStub.errorMessage = params?.validationError
 
   render(
     <SignUpPage
       validation={validationStub}
+      addAccount={addAccountSpy}
     />
   )
+
+  return {
+    addAccountSpy
+  }
 }
 
 const simulateValidSubmit = async (
@@ -120,5 +130,19 @@ describe("SignupPage", () => {
     makeSut()
     await simulateValidSubmit()
     Helper.testElementExists("spinner")
+  })
+
+  it("Should call AddAccount with correct values", async () => {
+    const { addAccountSpy } = makeSut()
+    const name = faker.internet.displayName()
+    const email = faker.internet.email()
+    const password = faker.internet.password()
+    await simulateValidSubmit(name, email, password)
+    expect(addAccountSpy.params).toEqual({
+      name,
+      email,
+      password,
+      passwordConfirmation: password
+    })
   })
 })
