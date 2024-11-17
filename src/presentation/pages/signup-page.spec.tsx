@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest"
 import { SignUpPage } from "./signup-page"
 
 import { EmailInUseError } from "@/domain/errors"
-import { AddAccountSpy, cleanup, fireEvent, Helper, render, screen, ValidationStub, waitFor } from "@/presentation/test"
+import { AddAccountSpy, cleanup, fireEvent, Helper, render, SaveAccessTokenMock, screen, ValidationStub, waitFor } from "@/presentation/test"
 
 const mockNavigate = vi.fn()
 
@@ -15,6 +15,7 @@ vi.mock("react-router-dom", async () => ({
 
 type SutTypes = {
   addAccountSpy: AddAccountSpy
+  saveAccessTokenMock: SaveAccessTokenMock
 }
 
 type SutParams = {
@@ -24,17 +25,20 @@ type SutParams = {
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   const addAccountSpy = new AddAccountSpy()
+  const saveAccessTokenMock = new SaveAccessTokenMock()
   validationStub.errorMessage = params?.validationError
 
   render(
     <SignUpPage
       validation={validationStub}
       addAccount={addAccountSpy}
+      saveAccessToken={saveAccessTokenMock}
     />
   )
 
   return {
-    addAccountSpy
+    addAccountSpy,
+    saveAccessTokenMock
   }
 }
 
@@ -168,5 +172,12 @@ describe("SignupPage", () => {
     await simulateValidSubmit()
     Helper.testElementText("main-error", error.message)
     Helper.testChildCount("error-wrap", 1)
+  })
+
+  it("Should calls SaveAccessToken on success", async () => {
+    const { addAccountSpy, saveAccessTokenMock } = makeSut()
+    await simulateValidSubmit()
+    expect(saveAccessTokenMock.accessToken).toBe(addAccountSpy.account.accessToken)
+    expect(mockNavigate).toHaveBeenCalledWith("/")
   })
 })
