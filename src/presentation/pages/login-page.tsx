@@ -20,25 +20,29 @@ export const LoginPage: React.FC<Props> = ({
   const navigate = useNavigate()
   const [state, setState] = useState({
     isLoading: false,
+    isFormInvalid: true,
     email: "",
     password: "",
     emailError: "",
     passwordError: "",
-    mainError: ""
+    mainError: "",
   })
 
   useEffect(() => {
+    const emailError = validation.validate('email', state.email)
+    const passwordError = validation.validate('password', state.password)
     setState({
       ...state,
-      emailError: validation.validate('email', state.email),
-      passwordError: validation.validate('password', state.password)
+      emailError,
+      passwordError,
+      isFormInvalid: !!emailError || !!passwordError
     })    
   }, [state.email, state.password])
 
   const handleSubmit = async (event: React.FormEvent<HTMLDivElement>): Promise<void> => {
     event.preventDefault()
     try {
-      if (state.isLoading || state.emailError || state.passwordError) return
+      if (state.isLoading || state.isFormInvalid) return
       setState({
         ...state,
         isLoading: true

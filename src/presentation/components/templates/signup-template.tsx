@@ -22,8 +22,8 @@ export const SignUpTemplate: React.FC<ILoginTemplate> = ({
         onSubmit={onSubmit} 
         actions={(
           <FormActions 
-            submitButtonText="Entrar"
-            submitButtonDisabled={!!state.nameError || !!state.emailError || !!state.passwordError || !!state.passwordConfirmationError}
+            submitButtonText="Cadastrar"
+            submitButtonDisabled={state.isFormInvalid}
             linkText="Voltar para Login"
             redirectTo="/login"
             linkTestId="login"
