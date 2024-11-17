@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import { afterEach, describe, expect, it, vi } from "vitest"
+import { afterEach, describe, it, vi } from "vitest"
 
 import { SignUpPage } from "./signup-page"
 
@@ -39,11 +39,6 @@ const simulateValidSubmit = async (
   const form = screen.getByTestId("form")
   fireEvent.submit(form)
   await waitFor(() => form)
-}
-
-const testElementExists = (fieldName: string): void => {
-  const el = screen.getByTestId(fieldName)
-  expect(el).toBeTruthy()
 }
 
 describe("SignupPage", () => {
@@ -124,6 +119,6 @@ describe("SignupPage", () => {
   it("Should show spinner on submit", async () => {
     makeSut()
     await simulateValidSubmit()
-    testElementExists("spinner")
+    Helper.testElementExists("spinner")
   })
 })
