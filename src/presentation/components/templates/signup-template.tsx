@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 
 import { PublicHeader } from "../atoms";
 import { FormActions } from "../molecules";
@@ -6,14 +6,20 @@ import { SignupForm, Layout } from "../organisms";
 
 import Context from "@/presentation/contexts/form/form-context"
 
-export const SignUpTemplate = () => {
+interface ILoginTemplate {
+  onSubmit?(event: React.FormEvent<HTMLDivElement>): void
+}
+
+export const SignUpTemplate: React.FC<ILoginTemplate> = ({
+  onSubmit
+}) => {
   const { state } = useContext(Context)
 
   return (
     <Layout>
       <PublicHeader />
       <SignupForm 
-        onSubmit={() => {}} 
+        onSubmit={onSubmit} 
         actions={(
           <FormActions 
             submitButtonText="Entrar"

@@ -34,9 +34,17 @@ export const SignUpPage: React.FC<Props> = ({
     })    
   }, [state.name, state.email, state.password, state.passwordConfirmation])
 
+  const handleSubmit = async (event: React.FormEvent<HTMLDivElement>): Promise<void> => {
+    event.preventDefault()
+    setState({
+      ...state,
+      isLoading: true
+    })
+  }
+
   return (
     <Context.Provider value={{ state, setState }}>
-      <SignUpTemplate />
+      <SignUpTemplate onSubmit={handleSubmit} />
     </Context.Provider>
   )
 }
