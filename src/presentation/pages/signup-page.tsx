@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
-import { AddAccount } from "@/domain/usecases"
+import { AddAccount, SaveAccessToken } from "@/domain/usecases"
 import { SignUpTemplate } from "@/presentation/components/templates"
 import Context from "@/presentation/contexts/form/form-context"
 import { Validation } from "@/presentation/protocols/validation"
@@ -9,11 +10,14 @@ import { Validation } from "@/presentation/protocols/validation"
 type Props = {
   validation: Validation
   addAccount: AddAccount
+  saveAccessToken: SaveAccessToken
 }
 export const SignUpPage: React.FC<Props> = ({
   validation,
-  addAccount
+  addAccount,
+  saveAccessToken
 }) => {
+  const navigate = useNavigate()
   const [state, setState] = useState({
     isLoading: false,
     name: "",
@@ -45,12 +49,14 @@ export const SignUpPage: React.FC<Props> = ({
         ...state,
         isLoading: true
       })
-      await addAccount.add({
+      const account = await addAccount.add({
         name: state.name,
         email: state.email,
         password: state.password,
         passwordConfirmation: state.passwordConfirmation
       })
+      await saveAccessToken.save(account.accessToken)
+      navigate("/")
     } catch (error) {
       setState({
         ...state,
