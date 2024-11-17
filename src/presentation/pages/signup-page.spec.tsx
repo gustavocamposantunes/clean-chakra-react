@@ -152,4 +152,11 @@ describe("SignupPage", () => {
     await simulateValidSubmit()
     expect(addAccountSpy.callsCount).toBe(1)
   })
+
+  it("Should not call Authentication form is invalid", async () => {
+    const validationError = faker.word.words()
+    const { addAccountSpy } = makeSut({ validationError })
+    await simulateValidSubmit()
+    expect(addAccountSpy.callsCount).toBe(0)
+  })
 })
