@@ -26,6 +26,7 @@ export const SignUpTemplate: React.FC<ILoginTemplate> = ({
             submitButtonDisabled={!!state.nameError || !!state.emailError || !!state.passwordError || !!state.passwordConfirmationError}
             linkText="Voltar para Login"
             redirectTo="/login"
+            linkTestId="login"
           />
         )}
       />

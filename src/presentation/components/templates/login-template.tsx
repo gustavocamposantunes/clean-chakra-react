@@ -24,6 +24,7 @@ export const LoginTemplate: React.FC<ILoginTemplate> = ({ onSubmit }) => {
             submitButtonDisabled={!!state.emailError || !!state.passwordError}
             linkText="Criar conta"
             redirectTo="/signup"
+            linkTestId="signup"
           />
         )}
       />

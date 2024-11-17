@@ -11,6 +11,7 @@ interface IFormActions {
   submitButtonDisabled: boolean
   linkText: string
   redirectTo: string
+  linkTestId?: string;
 }
 
 export const FormActions: React.FC<IFormActions> = ({ 
@@ -18,7 +19,8 @@ export const FormActions: React.FC<IFormActions> = ({
   submitButtonText,
   submitButtonDisabled,
   linkText,
-  redirectTo
+  redirectTo,
+  linkTestId
 }) => {
   const navigate = useNavigate()
   return (
@@ -36,7 +38,7 @@ export const FormActions: React.FC<IFormActions> = ({
       >
         {submitButtonText}
       </CustomButton>
-      <Link onClick={() => navigate(redirectTo)} data-testid="signup">{linkText}</Link>
+      <Link onClick={() => navigate(redirectTo)} data-testid={linkTestId}>{linkText}</Link>
       <FormStatus />
     </Flex>
   )
