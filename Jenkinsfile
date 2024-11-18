@@ -9,7 +9,7 @@ pipeline{
         stage('Install Dependencies') {
             steps {
                 echo 'Installing dependencies...'
-                sh 'npm install'
+                sh 'npm install --legacy-peer-deps'
             }
         }
         stage('Lint') {
