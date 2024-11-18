@@ -62,7 +62,7 @@ pipeline{
 
                     sh 'cp -r storybook-static/. storybook-repo/'
 
-                    dir('coverage-repo') {
+                    dir('storybook-repo') {
                         sh 'git add .'
                         sh 'git commit -m "chore: update components storybook - $(date +"%d-%m-%Y %H:%M")"'
                         sh 'git push origin master'
