@@ -21,7 +21,8 @@ export default defineConfig({
         'src/presentation/navigation',
         '**/index.ts',
         'eslint.config.js',
-        'vite.config.ts'
+        'vite.config.ts',
+        'storybook-static'
       ]
     }
   }
