@@ -23,7 +23,7 @@ export default defineConfig({
         'eslint.config.js',
         'vite.config.ts',
         'storybook-static',
-        'storybook-repo'
+        'storybook-repo',
       ]
     }
   }

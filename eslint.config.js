@@ -4,6 +4,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import pluginImport from 'eslint-plugin-import'
+import pluginCypress from 'eslint-plugin-cypress/flat'
 
 export default tseslint.config(
   { ignores: ['dist', 'coverage', 'coverage-repo','storybook-repo', 'storybook-static'] },
@@ -17,7 +18,8 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      'import': pluginImport
+      'import': pluginImport,
+      'cypress': pluginCypress
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
