@@ -21,6 +21,7 @@ export default defineConfig({
         'src/presentation/navigation',
         '**/index.ts',
         'eslint.config.js',
+        'cypress.config.ts',
         'vite.config.ts',
         'storybook-static',
         'storybook-repo',
