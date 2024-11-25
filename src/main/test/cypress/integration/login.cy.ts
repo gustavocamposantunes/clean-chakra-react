@@ -116,11 +116,11 @@ describe("Login", () => {
         accessToken: faker.word.words()
       }
     })
-    cy.getByTestId("email").type("gustavodecante@me.com")
+    cy.getByTestId("email").type(faker.internet.email())
     cy.getByTestId("email-status")
       .should("have.attr", "title", "Tudo certo")
       .should("contain.text", "🟢")
-    cy.getByTestId("password").type("123456")
+    cy.getByTestId("password").type(faker.string.alphanumeric(6))
     cy.getByTestId("password-status")
       .should("have.attr", "title", "Tudo certo")
       .should("contain.text", "🟢")
