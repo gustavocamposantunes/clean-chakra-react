@@ -130,4 +130,19 @@ describe("Login", () => {
     cy.url().should("eq", `${baseUrl}/`)
     cy.window().then(window => assert.isOk(window.localStorage.getItem("accessToken")))
   })
+
+  it("Should prevent multiple submits", () => {
+    cy.intercept('POST', /login/, {
+      statusCode: 200,
+      delay: 2000,
+      body: {
+        accessToken: faker.word.words()
+      }
+    }).as("request")
+    cy.getByTestId("email").type(faker.internet.email())
+    cy.getByTestId("password").type(faker.string.alphanumeric(6))
+    cy.getByTestId("submit-button").click()
+    cy.getByTestId("submit-button").click()
+    cy.get("@request.all").should("have.length", 1)
+  })
 })
