@@ -1,4 +1,4 @@
-import { Group, Input, InputProps, InputAddon } from "@chakra-ui/react"
+import { Input, InputProps, Field, Box, defineStyle } from "@chakra-ui/react"
 import React, { useContext } from "react"
 
 import Context from "@/presentation/contexts/form/form-context"
@@ -12,14 +12,66 @@ export const CustomInput: React.FC<InputProps> = ({ ...props }) => {
       [event.target.name]: event.target.value
     })
   }
-  const getStatus = (): string => {
-    return error ? "🔴" : "🟢"
-  }
-  const getError = (): string => error || "Tudo certo"
   return (
-    <Group attached>
-      <Input {...props} data-testid={props.name} onChange={handleChange} />
-      <InputAddon data-testid={`${props.name}-status`} title={getError()} cursor="help">{getStatus()}</InputAddon>
-    </Group>
+    <Field.Root 
+      data-testid={`${props.name}-wrap`} 
+      data-status={error ? "invalid" : "valid"}      
+    >
+      <Box pos="relative" w="full">
+        <Input 
+          title={error} 
+          data-status={error ? "invalid" : "valid"} 
+          css={fieldInputStyles} 
+          className="peer" 
+          variant="flushed" 
+          {...props} 
+          data-testid={props.name} 
+          onChange={handleChange} 
+          placeholder="" 
+        />
+        <Field.Label
+          data-testid={`${props.name}-label`}
+          title={error} 
+          css={fieldLabelStyles}
+        >
+            {props.placeholder}
+        </Field.Label>
+      </Box>
+    </Field.Root>
   )
 }
+
+const fieldInputStyles = defineStyle({
+  borderBottomStyle: "dashed",
+  borderBottomWidth: "2px",
+  _focus: {
+    borderBottomStyle: "solid"
+  },
+  "&[data-status='invalid']": {
+    borderColor: "red.500",
+  },
+  "&[data-status='valid']": {
+    borderColor: "green.500",
+  },
+})
+
+const fieldLabelStyles = defineStyle({
+  pos: "absolute",
+  bg: "bg",
+  px: "0.5",
+  top: "-3",
+  insetStart: "2",
+  fontWeight: "normal",
+  pointerEvents: "none",
+  transition: "position",
+  _peerPlaceholderShown: {
+    color: "fg.muted",
+    top: "2.5",
+    insetStart: "3",
+  },
+  _peerFocusVisible: {
+    color: "fg",
+    top: "-3",
+    insetStart: "2",
+  },
+})
