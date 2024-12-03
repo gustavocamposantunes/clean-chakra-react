@@ -59,4 +59,11 @@ describe("Signup", () => {
     FormHelper.testMainError("Esse email já está em uso")
     FormHelper.testUrl("/signup")
   })
+
+  it.only("Should present UnexpectedError on 400", () => {
+    Http.mockUnexpectedError()
+    simulateValidSubmit()
+    FormHelper.testMainError("Erro inesperado. Tente novamente em breve!")
+    FormHelper.testUrl("/signup")
+  })
 })
